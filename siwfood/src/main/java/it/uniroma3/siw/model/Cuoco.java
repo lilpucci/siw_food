@@ -8,10 +8,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 
 
 @Entity
+@Table(name = "cuoco")
 public class Cuoco {
     
     /*ATTRIBUTI CUOCO*/
@@ -22,7 +24,7 @@ public class Cuoco {
     private String cognome;
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dataNascita;
-    private String URL;
+    private String URLimage;
     /*FINE ATTRIBUTI*/
 
     /*EQUALS & HASHCODE*/
@@ -56,7 +58,7 @@ public class Cuoco {
         } else if (!dataNascita.equals(other.dataNascita))
             return false;
         return true;
-    }    
+    } 
     /*FINE EQUALS & HASHCODE*/
 
     /*GETTER & SETTER*/
@@ -97,12 +99,12 @@ public class Cuoco {
     }
 
     //url
-    public String getURL() {
-        return URL;
+    public String getURLimage() {
+        return URLimage;
     }
 
-    public void setURL(String uRL) {
-        URL = uRL;
+    public void setURLimage(String uRL) {
+        URLimage = uRL;
     }
     /*FINE GETTER & SETTER*/
     
