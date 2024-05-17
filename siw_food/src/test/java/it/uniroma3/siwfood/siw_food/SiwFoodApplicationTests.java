@@ -1,10 +1,10 @@
-package it.uniroma3.siwfood.siwfood;
+package it.uniroma3.siwfood.siw_food;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SiwfoodApplicationTests {
+class SiwFoodApplicationTests {
 
 	@Test
 	void contextLoads() {

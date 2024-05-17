@@ -1,0 +1,1 @@
+insert into cuoco(id,nome,cognome,data_nascita,url_image) values(nextval('cuoco_seq'),'mario','rossi','09/01/1900','https://fratellidesideri.com/cdn/shop/files/CANNAVACCIUOLO_collection_base_chef_mobile_1600x.jpg?v=1652448455');

@@ -1,13 +1,13 @@
-package it.uniroma3.siw.siwfood;
+package it.uniroma3.siwfood.siw_food;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SiwfoodApplication {
+public class SiwFoodApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SiwfoodApplication.class, args);
+		SpringApplication.run(SiwFoodApplication.class, args);
 	}
 
 }

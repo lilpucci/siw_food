@@ -1,5 +1,7 @@
-package it.uniroma3.siw.model;
+package it.uniroma3.siwfood.siw_food.model;
+
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -8,9 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
-
-
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Cuoco {
@@ -24,6 +24,8 @@ public class Cuoco {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dataNascita;
     private String urlImage;
+    @OneToMany
+    private List<Ricetta> ricette;
     /*FINE ATTRIBUTI*/
 
     /*EQUALS & HASHCODE*/
@@ -78,6 +80,15 @@ public class Cuoco {
 
     public void setDataNascita(LocalDate dataNascita) {
         this.dataNascita = dataNascita;
+    }
+
+    //ricette 
+    public void setRicette(List<Ricetta> ricette){
+        this.ricette = ricette;
+    }
+
+    public List<Ricetta> getRicette(){
+        return this.ricette;
     }
 
     //url

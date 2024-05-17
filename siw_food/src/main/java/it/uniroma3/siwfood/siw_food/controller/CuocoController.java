@@ -1,19 +1,18 @@
-package it.uniroma3.siw.controller;
+package it.uniroma3.siwfood.siw_food.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
-import it.uniroma3.siw.service.CuocoService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import it.uniroma3.siwfood.siw_food.service.CuocoService;
 
 @Controller
 public class CuocoController {
 
     @Autowired
-    CuocoService cuocoService;
+    private CuocoService cuocoService;
 
     @GetMapping("")
     public String index() {
@@ -33,3 +32,4 @@ public class CuocoController {
         return "cuochi.html";
     }
 }
+

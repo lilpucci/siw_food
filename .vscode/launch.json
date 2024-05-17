@@ -2,11 +2,11 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Spring Boot-SiwfoodApplication<siwfood>",
+            "name": "Spring Boot-SiwFoodApplication<siw_food>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
-            "mainClass": "it.uniroma3.siw.siwfood.SiwfoodApplication",
-            "projectName": "siwfood",
+            "mainClass": "it.uniroma3.siwfood.siw_food.SiwFoodApplication",
+            "projectName": "siw_food",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
         }
