@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Cuovo</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<div><a href="/"><img src="/images/logo-siw.png" width="50%" /></a></div>
+	<h1>Dettagli Cuoco</h1>
+	<div th:if="${cuoco}">
+		<span th:text="${cuoco.cognome}">Up!</span>
+		<span th:text="'(' + ${movie.dataNascita} + ')'">2000</span>
+		<span><img width="5%" th:src=${cuoco.urlImage} /></span>
+	</div>
+	<div th:unless="${cuoco}">Non esiste</div>
+</body>
+
+</html>

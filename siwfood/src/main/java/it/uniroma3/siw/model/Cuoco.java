@@ -8,12 +8,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+
 
 
 
 @Entity
-@Table(name = "cuoco")
 public class Cuoco {
     
     /*ATTRIBUTI CUOCO*/
@@ -24,7 +23,7 @@ public class Cuoco {
     private String cognome;
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dataNascita;
-    private String URLimage;
+    private String urlImage;
     /*FINE ATTRIBUTI*/
 
     /*EQUALS & HASHCODE*/
@@ -35,30 +34,13 @@ public class Cuoco {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
         Cuoco other = (Cuoco) obj;
-        if (nome == null) {
-            if (other.nome != null)
-                return false;
-        } else if (!nome.equals(other.nome))
-            return false;
-        if (cognome == null) {
-            if (other.cognome != null)
-                return false;
-        } else if (!cognome.equals(other.cognome))
-            return false;
-        if (dataNascita == null) {
-            if (other.dataNascita != null)
-                return false;
-        } else if (!dataNascita.equals(other.dataNascita))
-            return false;
-        return true;
-    } 
+        return Objects.equals(nome, other.nome) &&
+               Objects.equals(cognome, other.cognome) &&
+               Objects.equals(dataNascita, other.dataNascita);
+    }
     /*FINE EQUALS & HASHCODE*/
 
     /*GETTER & SETTER*/
@@ -99,12 +81,12 @@ public class Cuoco {
     }
 
     //url
-    public String getURLimage() {
-        return URLimage;
+    public String getUrlImage() {
+        return urlImage;
     }
 
-    public void setURLimage(String uRL) {
-        URLimage = uRL;
+    public void setUrlImage(String uRL) {
+        urlImage = uRL;
     }
     /*FINE GETTER & SETTER*/
     

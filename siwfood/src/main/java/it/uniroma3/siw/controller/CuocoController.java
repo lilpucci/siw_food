@@ -15,7 +15,7 @@ public class CuocoController {
     @Autowired
     CuocoService cuocoService;
 
-    @GetMapping("/index.html")
+    @GetMapping("")
     public String index() {
         return "index.html";
     }
@@ -27,4 +27,9 @@ public class CuocoController {
     }
     
     
+    @GetMapping("/cuochi")
+    public String getCuochi(Model model) {
+        model.addAttribute("cuochi", this.cuocoService.findAll());
+        return "cuochi.html";
+    }
 }
