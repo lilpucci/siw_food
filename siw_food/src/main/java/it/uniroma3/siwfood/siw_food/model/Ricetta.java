@@ -1,10 +1,13 @@
 package it.uniroma3.siwfood.siw_food.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Ricetta {
@@ -16,8 +19,12 @@ public class Ricetta {
     private String titolo;
     private String urlImage;
     @ManyToOne
-    private Cuoco autore;
+    private Cuoco cuoco;
+    @OneToMany
+    private List<Ingrediente> ingredienti;
     /*FINE ATTRIBUTI*/
+    
+    
     
     /*EQUALS & HASHCODE*/
     @Override
@@ -26,7 +33,7 @@ public class Ricetta {
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((titolo == null) ? 0 : titolo.hashCode());
-        result = prime * result + ((autore == null) ? 0 : autore.hashCode());
+        result = prime * result + ((cuoco == null) ? 0 : cuoco.hashCode());
         return result;
     }
     
@@ -49,10 +56,10 @@ public class Ricetta {
                 return false;
         } else if (!titolo.equals(other.titolo))
             return false;
-        if (autore == null) {
-            if (other.autore != null)
+        if (cuoco == null) {
+            if (other.cuoco != null)
                 return false;
-        } else if (!autore.equals(other.autore))
+        } else if (!cuoco.equals(other.cuoco))
             return false;
         return true;
     }
@@ -83,12 +90,21 @@ public class Ricetta {
         this.urlImage = urlImage;
     }
 
-    public Cuoco getAutore() {
-        return autore;
+    public Cuoco getCuoco() {
+        return cuoco;
     }
 
-    public void setAutore(Cuoco autore) {
-        this.autore = autore;
+    public void setCuoco(Cuoco autore) {
+        this.cuoco = autore;
     }
+
+    public List<Ingrediente> getIngredienti() {
+        return this.ingredienti;
+    }
+
+    public void setIngredienti(List<Ingrediente> ingredienti) {
+        this.ingredienti = ingredienti;
+    }
+
     /*FINE GETTER & SETTER*/
 }

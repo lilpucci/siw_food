@@ -1,5 +1,7 @@
 package it.uniroma3.siwfood.siw_food.service;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,15 @@ public class CuocoService {
 
     public Iterable<Cuoco> findAll(){
         return cuocoRepository.findAll();
+    }
+
+    public Iterable<Cuoco> findByNome(String nome){
+        return cuocoRepository.findByNomeOrderByCognomeAsc(nome);
+    }
+
+    public Iterable<Cuoco> findByDataNascita(int year){
+        LocalDate dataNascita = LocalDate.of(year,1,1);
+        return cuocoRepository.findByDataNascitaAfter(dataNascita);
     }
     
 }
