@@ -9,3 +9,9 @@ insert into cuoco(id,nome,cognome,data_nascita,url_image) values(nextval('cuoco_
 insert into cuoco(id,nome,cognome,data_nascita,url_image) values(nextval('cuoco_seq'),'Gino','D''Acampo','17/07/1976','/image/foto_cuochi/gino.jpg');
 
 /*INSERIMENTI NELLA TABELLA RICETTA*/
+
+-- Inserimento delle ricette
+INSERT INTO ricetta(id,titolo, cuoco_id) VALUES (nextval('ricetta_seq'),'Pasta al pomodoro', (SELECT id FROM Cuoco WHERE nome = 'Gordon'));
+
+INSERT INTO ricetta(id,titolo, cuoco_id) VALUES (nextval('ricetta_seq'),'Tiramisu', (SELECT id FROM Cuoco WHERE nome = 'Gino'));
+

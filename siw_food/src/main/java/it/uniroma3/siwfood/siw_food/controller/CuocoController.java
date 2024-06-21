@@ -44,13 +44,11 @@ public class CuocoController {
     }
 
     //restituisce una pagina con tutti i cuochi nati dopo un certo anno
-    @GetMapping("/cuochi/byYear")
+    @GetMapping("/cuochi/byAnno")
     public String getMethodName(@RequestParam int year, Model model) {
         model.addAttribute("cuochi", this.cuocoService.findByDataNascita(year));
         return "cuochi.html";
     }
-    
-    
     
 }
 

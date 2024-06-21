@@ -1,20 +1,29 @@
 <!DOCTYPE html>
-<html>
-
 <head>
-	<title>Cuovo</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+    <title>Cuoco Details</title>
 </head>
-
 <body>
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%" /></a></div>
-	<h1>Dettagli Cuoco</h1>
-	<div th:if="${cuoco}">
-		<span th:text="${cuoco.cognome}">Up!</span>
-		<span th:text="'(' + ${movie.dataNascita} + ')'">2000</span>
-		<span><img width="5%" th:src=${cuoco.urlImage} /></span>
-	</div>
-	<div th:unless="${cuoco}">Non esiste</div>
+    <h1>Dettagli del Cuoco</h1>
+    
+    <div>
+        <img th:src="@{${cuoco.urlImage}}" width="30%"/>
+    </div>
+    
+    <div>
+        <h2 th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}"></h2>
+        <p th:text="'Data di Nascita: ' + ${cuoco.dataNascita}"></p>
+    </div>
+    
+    <div>
+        <h3>Ricette Proposte</h3>
+        <div th:if="${#lists.isEmpty(cuoco.ricette)}">
+            <p>Non ci sono attualmente ricette per questo cuoco</p>
+        </div>
+        <ul th:unless="${#lists.isEmpty(cuoco.ricette)}">
+            <li th:each="ricetta : ${cuoco.ricette}">
+                <span th:text="${ricetta.titolo}"></span>
+            </li>
+        </ul>
+    </div>
 </body>
-
 </html>
