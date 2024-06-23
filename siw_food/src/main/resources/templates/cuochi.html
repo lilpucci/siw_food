@@ -10,7 +10,7 @@
             <div>
                 <img th:src="@{${cuoco.urlImage}}" width="30%"/>
             </div>
-            <a th:href="@{/cuoco/{id}(id=${cuoco.id})}">
+            <a th:href="@{/cuochi/{id}(id=${cuoco.id})}">
                 <span th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}"></span>
             </a>
             <span th:text="${cuoco.dataNascita}"></span>

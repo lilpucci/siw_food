@@ -21,7 +21,7 @@
         </div>
         <ul th:unless="${#lists.isEmpty(cuoco.ricette)}">
             <li th:each="ricetta : ${cuoco.ricette}">
-                <span th:text="${ricetta.titolo}"></span>
+                <span th:text="${ricetta.nome}"></span>
             </li>
         </ul>
     </div>
