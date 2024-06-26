@@ -21,14 +21,14 @@ public class RicettaService {
     }
 
     public Iterable<Ricetta> findByNome(String nome){
-        return this.ricettaRepository.findByNome(null);
-    } 
-
-    public Iterable<Ricetta> findByIngrediente(String ingrediente){
-        return this.ricettaRepository.findAllByIngredientiContaining(ingrediente);
+        return this.ricettaRepository.findByNome(nome);
     }
 
-    public Ricetta savRicetta(Ricetta ricetta){
+    public Iterable<Ricetta> findByIngredienteNome(String nomeIngrediente){
+        return this.findByIngredienteNome(nomeIngrediente);
+    }
+
+    public Ricetta saveRicetta(Ricetta ricetta){
         return this.ricettaRepository.save(ricetta);
     }
 

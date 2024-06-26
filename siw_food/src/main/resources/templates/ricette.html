@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html>
+
 <head>
-    <title>Ricette</title>
+    <title>Tutte le Ricette</title>
 </head>
 <body>
     <h1>Lista delle Ricette</h1>
-    <ul>
-        <li th:each="ricetta : ${ricette}">
-            <div>
-                <p>qui ci va la foto</p>
-            </div>
-            <a th:href="@{/ricette/{id}(id=${ricetta.id})}">
-                <span th:text="${ricetta.nome}"></span>
-            </a>
-        </li>
-    </ul>
-    <a href="/ricette/search">Vai alla pagina di ricerca delle ricette</a>
-    <a href="/ricette/new">Vai alla pagina per l'aggiunta di una ricetta</a>
+    
+    <div>
+        <ul>
+            <li th:each="ricetta : ${ricette}">
+                <a th:href="@{/ricette/{id}(id=${ricetta.id})}" th:text="${ricetta.nome}">Nome Ricetta</a> - 
+                <span th:text="'Proposta da: ' + ${ricetta.cuoco.nome} + ' ' + ${ricetta.cuoco.cognome}">Nome Cuoco</span>
+            </li>
+        </ul>
+    </div>
+    
+    <div>
+        <a th:href="@{/}">Torna alla Home</a>
+    </div>
 </body>
 </html>

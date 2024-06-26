@@ -130,5 +130,15 @@ public class Ricetta {
     public void setCuoco(Cuoco autore) {
         this.cuoco = autore;
     }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
+    }
+
+    
     /*FINE GETTER & SETTER*/
 }

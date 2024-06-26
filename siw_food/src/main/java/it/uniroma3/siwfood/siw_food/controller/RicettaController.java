@@ -51,7 +51,7 @@ public class RicettaController {
     //finalizza la creazione della ricetta
     @PostMapping("/save")
     public String postNewRicetta(@ModelAttribute Ricetta ricetta) {
-        this.ricettaService.savRicetta(ricetta);
+        this.ricettaService.saveRicetta(ricetta);
         return "redirect:/ricetta/" + ricetta.getId();
     }
 
@@ -65,7 +65,7 @@ public class RicettaController {
     @PostMapping("/update/{id}")
     public String updateRicetta(@PathVariable("id") Long id, @ModelAttribute Ricetta ricetta) {
         ricetta.setId(id);
-        this.ricettaService.savRicetta(ricetta);
+        this.ricettaService.saveRicetta(ricetta);
         return "redirect:/ricette/" + ricetta.getId();
     }
 
@@ -82,7 +82,7 @@ public class RicettaController {
 
     @PostMapping("/byIngrediente")
     public String postRicetteByIngrediente(@RequestParam String ingr, Model model) {
-        model.addAttribute("ricette", this.ricettaService.findByIngrediente(ingr));
+        model.addAttribute("ricette", this.ricettaService.findByIngredienteNome(ingr));
         return "ricette.html";
     }
     
