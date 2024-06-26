@@ -9,7 +9,11 @@ insert into cuoco(id,nome,cognome,data_nascita,url_image) values(nextval('cuoco_
 /*INSERIMENTI NELLA TABELLA RICETTA*/
 
 -- Inserimento delle ricette
-INSERT INTO ricetta(id,nome,cuoco_id) VALUES (nextval('ricetta_seq'),'Pasta al pomodoro', (SELECT id FROM Cuoco WHERE nome = 'Gordon'));
+INSERT INTO ricetta(id,nome,ingredienti,cuoco_id) VALUES (nextval('ricetta_seq'),'Pasta al pomodoro','pasta , basilico , aglio , olio' ,(SELECT id FROM Cuoco WHERE nome = 'Gordon'));
+INSERT INTO ricetta(id,nome,ingredienti,cuoco_id) VALUES (nextval('ricetta_seq'),'Pasta al pesto','pesto , pasta , sale' ,(SELECT id FROM Cuoco WHERE nome = 'Antonino'));
+INSERT INTO ricetta(id,nome,ingredienti,cuoco_id) VALUES (nextval('ricetta_seq'),'torta alla crema', 'uova , farina , latte , vaniglia ' ,(SELECT id FROM Cuoco WHERE nome = 'Gordon'));
+INSERT INTO ricetta(id,nome,ingredienti,cuoco_id) VALUES (nextval('ricetta_seq'),'Spagetti con le vongole', 'vongole,sale,pachino,pasta',(SELECT id FROM Cuoco WHERE nome = 'Gino'));
+
 
 INSERT INTO ricetta(id,nome,cuoco_id) VALUES (nextval('ricetta_seq'),'Tiramisu', (SELECT id FROM Cuoco WHERE nome = 'Gino'));
 

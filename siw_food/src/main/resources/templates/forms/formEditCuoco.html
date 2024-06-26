@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-
 <head>
-    <title>Nuovo Cuoco</title>
+    <title>Modifica Cuoco</title>
 </head>
 <body>
-    <h1>Crea un Nuovo Cuoco</h1>
-    <form action="#" th:action="@{/cuochi/save}" th:object="${cuoco}" method="post">
+    <h1>Modifica Cuoco</h1>
+    <form action="#" th:action="@{/cuochi/update/{id}(id=${cuoco.id})}" th:object="${cuoco}" method="post">
         <div>
             <label for="nome">Nome:</label>
             <input type="text" id="nome" th:field="*{nome}" />

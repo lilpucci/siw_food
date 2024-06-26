@@ -5,7 +5,12 @@ import org.springframework.stereotype.Repository;
 
 import it.uniroma3.siwfood.siw_food.model.Ricetta;
 
+
 @Repository
 public interface RicettaRepository extends CrudRepository<Ricetta,Long>{
 
+    public Iterable<Ricetta> findByNome(String nome);
+
+    public Iterable<Ricetta> findAllByIngredientiContaining(String ingrediente);
+    
 }

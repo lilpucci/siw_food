@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Dettagli della Ricetta</title>
+</head>
+<body>
+    <h1>Dettagli della Ricetta</h1>
+
+    <div>
+        <img th:src="@{${ricetta.urlImage}}" width="30%" alt="Immagine Ricetta"/>
+    </div>
+
+    <div>
+        <h2 th:text="${ricetta.nome}"></h2>
+        <p th:text="${ricetta.descrizione}"></p>
+    </div>
+
+    <div>
+        <h3>Ingredienti</h3>
+        <ul>
+            <li th:each="ingrediente : ${ricetta.ingredienti}">
+                <span th:text="${ingrediente.nome} + ': ' + ${ingrediente.quantita}"></span>
+            </li>
+        </ul>
+    </div>
+
+    <div>
+        <h3>Proposto da</h3>
+        <p th:text="${ricetta.cuoco.nome} + ' ' + ${ricetta.cuoco.cognome}"></p>
+    </div>
+
+    <div>
+        <a th:href="@{/ricette/edit/{id}(id=${ricetta.id})}">Edita</a>
+    </div>
+    <div>
+        <a th:href="@{/ricette/delete/{id}(id=${ricetta.id})}">Elimina</a>
+    </div>
+</body>
+</html>

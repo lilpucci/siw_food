@@ -6,14 +6,15 @@ package it.uniroma3.siwfood.siw_food.model;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 
 @Entity
@@ -26,19 +27,32 @@ public class Ricetta {
 
     private String nome;
 
-    @Lob
     private String descrizione;
 
     @ElementCollection
     private List<String> urlImage;
 
-    @ElementCollection
-    private List<String> ingredienti;
+    @OneToMany(mappedBy = "ricetta", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Ingrediente> ingredienti;
 
     @ManyToOne
     @JoinColumn(name = "cuoco_id")
     private Cuoco cuoco;
     /*FINE ATTRIBUTI*/
+
+    /*COSTRUTTORI*/
+    public Ricetta(){
+
+    }
+
+    public Ricetta(String nome, String descr, List<String> urlImage, List<Ingrediente> ingr, Cuoco cuoco){
+        this.nome = nome;
+        this.descrizione = descr;
+        this.urlImage = urlImage;
+        this.ingredienti = ingr;
+        this.cuoco = cuoco;
+    }
+    /*FINE COSTRUTTORI*/
     
     
     /*EQUALS & HASHCODE*/
@@ -101,11 +115,11 @@ public class Ricetta {
         this.urlImage = urlImage;
     }
 
-    public List<String> getIngredienti() {
+    public List<Ingrediente> getIngredienti() {
         return this.ingredienti;
     }
 
-    public void setIngredienti(List<String> ingredienti) {
+    public void setIngredienti(List<Ingrediente> ingredienti) {
         this.ingredienti = ingredienti;
     }
 

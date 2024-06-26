@@ -13,10 +13,27 @@ public class RicettaService {
     private RicettaRepository ricettaRepository;
 
     public Ricetta findById(Long id){
-        return ricettaRepository.findById(id).get();
+        return this.ricettaRepository.findById(id).get();
     }
 
     public Iterable<Ricetta> findAll(){
-        return ricettaRepository.findAll();
+        return this.ricettaRepository.findAll();
     }
+
+    public Iterable<Ricetta> findByNome(String nome){
+        return this.ricettaRepository.findByNome(null);
+    } 
+
+    public Iterable<Ricetta> findByIngrediente(String ingrediente){
+        return this.ricettaRepository.findAllByIngredientiContaining(ingrediente);
+    }
+
+    public Ricetta savRicetta(Ricetta ricetta){
+        return this.ricettaRepository.save(ricetta);
+    }
+
+    public void deleteRicetta(Long id){
+        this.ricettaRepository.deleteById(id);
+    }
+
 }
