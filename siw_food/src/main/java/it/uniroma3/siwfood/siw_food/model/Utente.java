@@ -1,10 +1,11 @@
 package it.uniroma3.siwfood.siw_food.model;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,23 +18,22 @@ public class Utente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private String username;
-    private String password;
+    private String nome;
+    private String cognome;
     
-    @Enumerated(EnumType.STRING)
-    private Role role;
-    
-    public enum Role {
-        OCCASIONAL, REGISTERED, ADMIN
-    }
-    /*FINE ATTRIBUTI*/
+    private String luogoDiNascita;
 
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate dataDiNascita;
+    
+    private String email;
+    /*FINE ATTRIBUTI*/
 
 
     /*EQUALS & HASHCODE*/
     @Override
     public int hashCode() {
-        return Objects.hash(username,password);
+        return Objects.hash(nome,cognome,email);
     }
 
     @Override
@@ -45,24 +45,25 @@ public class Utente {
         if (getClass() != obj.getClass())
             return false;
         Utente other = (Utente) obj;
-        if (id == null) {
-            if (other.id != null)
+        if (nome == null) {
+            if (other.nome != null)
                 return false;
-        } else if (!id.equals(other.id))
+        } else if (!nome.equals(other.nome))
             return false;
-        if (username == null) {
-            if (other.username != null)
+        if (cognome == null) {
+            if (other.cognome != null)
                 return false;
-        } else if (!username.equals(other.username))
+        } else if (!cognome.equals(other.cognome))
             return false;
-        if (password == null) {
-            if (other.password != null)
+        if (email == null) {
+            if (other.email != null)
                 return false;
-        } else if (!password.equals(other.password))
+        } else if (!email.equals(other.email))
             return false;
         return true;
     }
     /*FINE EQUALS & HASHCODE*/
+ 
 
     /*GETTER & SETTER*/
     public Long getId() {
@@ -73,28 +74,44 @@ public class Utente {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getNome() {
+        return nome;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getPassword() {
-        return password;
+    public String getCognome() {
+        return cognome;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
     }
 
-    public Role getRole() {
-        return role;
+    public String getLuogoDiNascita() {
+        return luogoDiNascita;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setLuogoDiNascita(String luogoDiNascita) {
+        this.luogoDiNascita = luogoDiNascita;
+    }
+
+    public LocalDate getDataDiNascita() {
+        return dataDiNascita;
+    }
+
+    public void setDataDiNascita(LocalDate dataDiNascita) {
+        this.dataDiNascita = dataDiNascita;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
     /*FINE GETTER & SETTER*/
 }
