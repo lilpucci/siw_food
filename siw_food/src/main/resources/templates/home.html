@@ -1,20 +1,15 @@
 <!DOCTYPE html>
-<html>
-
 <head>
-	<title>
-		SIWFOOD - Homepage
-	</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+    <title>Home Page</title>
 </head>
-
 <body>
-	<div><img src="/image/cooking.jpg" width="50%" /></div>
-	<h1>Consulta</h1>
-	<div>
-		<a href="/cuochi">CUOCHI</a>
-		<a href="/ricette">RICETTE</a>
-	</div>
+    <h1>Benvenuti nel sistema informativo</h1>
+    <div>
+        <a th:href="@{/cuochi}">Lista dei Cuochi</a>
+    </div>
+    <div>
+        <a th:href="@{/ricette}">Lista delle Ricette</a>
+    </div>
+   
 </body>
-
 </html>

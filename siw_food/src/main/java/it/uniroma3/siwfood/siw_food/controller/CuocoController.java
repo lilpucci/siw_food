@@ -17,6 +17,7 @@ import it.uniroma3.siwfood.siw_food.service.CuocoService;
 
 
 
+
 @Controller
 @RequestMapping("/cuochi")
 public class CuocoController {
@@ -76,14 +77,14 @@ public class CuocoController {
     @PostMapping("/byNome")  //invia al server i dati con cui effettuare la ricerca
     public String postCuochiByNome(@RequestParam String nome, Model model) {
         model.addAttribute("cuochi", this.cuocoService.findByNome(nome));
-        return "redirect:/cuochi";
+        return "cuochi.html";
     }
     
     //restituisce una pagina con tutti i cuochi nati dopo un certo anno
     @PostMapping("/byYear")
     public String postCuochiByYear(@RequestParam int year, Model model) {
         model.addAttribute("cuochi", this.cuocoService.findByDataNascita(year));
-        return "redirect:/cuochi";
+        return "cuochi.html";
     }
     
     //cancella un cuoco in base all'id
@@ -92,4 +93,7 @@ public class CuocoController {
         cuocoService.deleteCuoco(id);
         return "redirect:/cuochi";
     }
+
+
+    
 }

@@ -30,7 +30,7 @@ public class Cuoco {
     
     private String urlImage;
     
-    @OneToMany(mappedBy = "cuoco", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "cuoco", cascade = CascadeType.ALL)
     private List<Ricetta> ricette;
     /*FINE ATTRIBUTI*/
 

@@ -32,7 +32,7 @@ public class Ricetta {
     @ElementCollection
     private List<String> urlImage;
 
-    @OneToMany(mappedBy = "ricetta", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "ricetta", cascade = CascadeType.ALL)
     private List<Ingrediente> ingredienti;
 
     @ManyToOne

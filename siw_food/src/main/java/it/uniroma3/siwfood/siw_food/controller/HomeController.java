@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
     
     //restituisce il template della welcome page
-    @GetMapping("")
+    @GetMapping("/")
     public String getHomePage() {
         return "home.html";
     }

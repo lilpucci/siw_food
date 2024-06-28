@@ -3,8 +3,8 @@ INSERT INTO Cuoco (id, nome, cognome, data_nascita) VALUES (nextval('cuoco_seq')
 INSERT INTO Cuoco (id, nome, cognome, data_nascita) VALUES (nextval('cuoco_seq'), 'Luigi', 'Bianchi', '15-05-1975');
 INSERT INTO Cuoco (id, nome, cognome, data_nascita) VALUES (nextval('cuoco_seq'), 'Giovanni', 'Verdi', '22-09-1985');
 /*INSERIMENTI NELLA TABELLA RICETTA*/
-INSERT INTO Ricetta (id, nome, descrizione, cuoco_id) VALUES (nextval('ricetta_seq'), 'Spaghetti Carbonara', 'Una deliziosa carbonara.', (SELECT id FROM Cuoco WHERE nome = 'Mario' AND cognome = 'Rossi'));
-INSERT INTO Ricetta (id, nome, descrizione, cuoco_id) VALUES (nextval('ricetta_seq'), 'Pizza Margherita', 'Una classica pizza margherita.', (SELECT id FROM Cuoco WHERE nome = 'Luigi' AND cognome = 'Bianchi'));
+INSERT INTO Ricetta (id, nome, descrizione, cuoco_id) VALUES (nextval('ricetta_seq'), 'Spaghetti Carbonara', 'Una deliziosa carbonara.', (SELECT id FROM Cuoco WHERE nome = 'Luigi' AND cognome = 'Bianchi'));
+INSERT INTO Ricetta (id, nome, descrizione, cuoco_id) VALUES (nextval('ricetta_seq'), 'Pizza Margherita', 'Una classica pizza margherita.', (SELECT id FROM Cuoco WHERE nome = 'Mario' AND cognome = 'Rossi'));
 INSERT INTO Ricetta (id, nome, descrizione, cuoco_id) VALUES (nextval('ricetta_seq'), 'Tiramisu', 'Un dolce tiramisu tradizionale.', (SELECT id FROM Cuoco WHERE nome = 'Giovanni' AND cognome = 'Verdi'));
 /*INSERIMENTI NELLA TABELLA RICETTA*/
 INSERT INTO Ingrediente (id, nome, quantita, ricetta_id) VALUES (nextval('ingrediente_seq'), 'Spaghetti', '200g', (SELECT id FROM Ricetta WHERE nome = 'Spaghetti Carbonara'));

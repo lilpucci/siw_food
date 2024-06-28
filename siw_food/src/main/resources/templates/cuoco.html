@@ -31,5 +31,11 @@
     <div>
         <a th:href="@{/cuochi/delete/{id}(id=${cuoco.id})}">elimina</a>    
     </div>
+    <div>
+        <a th:href="@{/ricette/new/{cuoco_id}(cuoco_id=${cuoco.id})}">aggiungi ricetta</a>    
+    </div>
+    <div>
+        <a th:href="@{/cuochi}">torna alla lista dei cuochi</a>    
+    </div>
 </body>
 </html>

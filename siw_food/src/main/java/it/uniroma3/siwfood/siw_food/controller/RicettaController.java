@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import it.uniroma3.siwfood.siw_food.model.Ricetta;
-import it.uniroma3.siwfood.siw_food.service.IngredienteService;
+import it.uniroma3.siwfood.siw_food.service.CuocoService;
+//import it.uniroma3.siwfood.siw_food.service.IngredienteService;
 import it.uniroma3.siwfood.siw_food.service.RicettaService;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +25,10 @@ public class RicettaController {
     private RicettaService ricettaService;
 
     @Autowired
-    private IngredienteService ingredienteService;
+    private CuocoService cuocoService;
+
+    //@Autowired
+    //private IngredienteService ingredienteService;
 
 
     //risponde all richiesta get che mi indirizza al template che mostra tutte le ricette nel db
@@ -42,17 +46,19 @@ public class RicettaController {
     }
 
     //porta alla form per l'inserimento di una nuova ricetta
-    @GetMapping("/new")
-    public String getFormNewRicetta(Model model) {
+    @GetMapping("/new/{cuoco_id}")
+    public String getFormNewRicetta(@PathVariable("cuoco_id") Long id,Model model) {
+        model.addAttribute("cuoco", this.cuocoService.findById(id));
         model.addAttribute("ricetta", new Ricetta());
-        return "ricetta.html";
+        return "forms/formNewRicetta.html";
     }
 
     //finalizza la creazione della ricetta
-    @PostMapping("/save")
-    public String postNewRicetta(@ModelAttribute Ricetta ricetta) {
+    @PostMapping("/save/{cuoco_id}")
+    public String postNewRicetta(@PathVariable("cuoco_id") Long id, @ModelAttribute Ricetta ricetta) {
+        ricetta.setCuoco(this.cuocoService.findById(id));
         this.ricettaService.saveRicetta(ricetta);
-        return "redirect:/ricetta/" + ricetta.getId();
+        return "redirect:/cuochi/" + id;
     }
 
     //porta alla form per l'edit di una ricetta
