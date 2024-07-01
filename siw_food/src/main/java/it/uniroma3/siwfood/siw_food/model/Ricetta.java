@@ -1,10 +1,9 @@
 package it.uniroma3.siwfood.siw_food.model;
 
-
-
-
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
@@ -15,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 
 
 @Entity
@@ -25,30 +25,33 @@ public class Ricetta {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank
     private String nome;
+
 
     private String descrizione;
 
     @ElementCollection
-    private List<String> urlImage;
+    private List<Immagine> immagini;
 
     @OneToMany(mappedBy = "ricetta", cascade = CascadeType.ALL)
-    private List<Ingrediente> ingredienti;
+    private Set<Ingrediente> ingredienti = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "cuoco_id")
     private Cuoco cuoco;
     /*FINE ATTRIBUTI*/
 
+
     /*COSTRUTTORI*/
     public Ricetta(){
 
     }
 
-    public Ricetta(String nome, String descr, List<String> urlImage, List<Ingrediente> ingr, Cuoco cuoco){
+    public Ricetta(String nome, String descr, List<Immagine> immagini, Set<Ingrediente> ingr, Cuoco cuoco){
         this.nome = nome;
         this.descrizione = descr;
-        this.urlImage = urlImage;
+        this.immagini = immagini;
         this.ingredienti = ingr;
         this.cuoco = cuoco;
     }
@@ -89,6 +92,21 @@ public class Ricetta {
     }
     /*FINE EQUALS & HASHCODE*/
 
+
+    /*METODI PER LE IMMAGINI*/
+    public Immagine getFirstImmagine(){
+        return this.immagini.get(0);
+    } 
+
+    public List<Immagine> getImmaginiDopoFirst(){
+        try {
+            return this.immagini.subList(1, this.immagini.size());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    /*METODI PER LE IMMAGINI*/
+    
     
     /*GETTER & SETTER*/
     public Long getId() {
@@ -107,19 +125,19 @@ public class Ricetta {
         this.nome = titolo;
     }
 
-    public List<String> getUrlImage() {
-        return this.urlImage;
+    public List<Immagine> getImmagini() {
+        return immagini;
     }
 
-    public void setUrlImage(List<String> urlImage) {
-        this.urlImage = urlImage;
+    public void setImmagini(List<Immagine> immagini) {
+        this.immagini = immagini;
     }
 
-    public List<Ingrediente> getIngredienti() {
+    public Set<Ingrediente> getIngredienti() {
         return this.ingredienti;
     }
 
-    public void setIngredienti(List<Ingrediente> ingredienti) {
+    public void setIngredienti(Set<Ingrediente> ingredienti) {
         this.ingredienti = ingredienti;
     }
 
@@ -138,7 +156,6 @@ public class Ricetta {
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
-
-    
     /*FINE GETTER & SETTER*/
+ 
 }

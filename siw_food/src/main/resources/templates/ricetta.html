@@ -20,6 +20,14 @@
             </li>
         </ul>
     </div>
+
+    <div>
+        <a th:href="@{/admin/editRicetta/{id}(id=${ricetta.id})}">Modifica la Ricetta</a>
+    </div>
+
+    <div>
+        <a th:href="@{/admin/deleteRicetta/{id}(id=${ricetta.id})}">Elimina la Ricetta</a>
+    </div>
     
     <div>
         <h3>Proposta da</h3>

@@ -18,7 +18,7 @@ public class CuocoService {
     /*RICERCHE*/
     //cerca un cuoco in base all'id
     public Cuoco findById(Long id){
-        return cuocoRepository.findById(id).get();
+        return cuocoRepository.findById(id).orElse(null);  //oppure invece di .orElse(null) -> .get()
     }
     //restituisce tutti i cuochi salvati nel sistema
     public Iterable<Cuoco> findAll(){

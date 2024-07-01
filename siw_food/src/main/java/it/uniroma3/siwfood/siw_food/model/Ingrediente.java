@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Ingrediente {
@@ -17,8 +18,9 @@ public class Ingrediente {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank
     private String nome;
-    
+    @NotBlank
     private String quantita;
 
     @ManyToOne
@@ -40,6 +42,7 @@ public class Ingrediente {
     /*FINE COSTRUTTORI*/
 
 
+    /*EQUALS & HASHCODE*/
     @Override
     public int hashCode() {
         return Objects.hash(nome,quantita,ricetta);
@@ -71,6 +74,7 @@ public class Ingrediente {
             return false;
         return true;
     }
+    //TODO toString()
     /*FINE EQUALS & HASHCODE*/
 
 
@@ -107,8 +111,5 @@ public class Ingrediente {
         this.ricetta = ricetta;
     }
     /*FINE GETTER & SETTER*/
-
-    
-
-    
+ 
 }

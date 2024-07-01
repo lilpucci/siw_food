@@ -4,7 +4,7 @@
 </head>
 <body>
     <h1>Modifica Cuoco</h1>
-    <form action="#" th:action="@{/cuochi/update/{id}(id=${cuoco.id})}" th:object="${cuoco}" method="post">
+    <form action="#" th:action="@{/admin/editCuoco/{id}(id=${cuoco.id})}" th:object="${cuoco}" method="post">
         <div>
             <label for="nome">Nome:</label>
             <input type="text" id="nome" th:field="*{nome}" />

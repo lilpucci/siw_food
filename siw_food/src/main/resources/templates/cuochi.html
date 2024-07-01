@@ -7,9 +7,7 @@
     <h1>Lista dei Cuochi</h1>
     <ul>
         <li th:each="cuoco : ${cuochi}">
-            <div>
-                <img th:src="@{${cuoco.urlImage}}" width="30%"/>
-            </div>
+            
             <a th:href="@{/cuochi/{id}(id=${cuoco.id})}">
                 <span th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}"></span>
             </a>
@@ -22,7 +20,7 @@
     </div>
 
     <div>
-        <a href="/cuochi/new">Vai alla pagina per l'aggiunta di un cuoco</a>
+        <a href="/admin/addCuoco">Vai alla pagina per l'aggiunta di un cuoco</a>
     </div>
 
     <div>

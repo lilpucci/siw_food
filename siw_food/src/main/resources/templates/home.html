@@ -3,6 +3,18 @@
     <title>Home Page</title>
 </head>
 <body>
+
+    
+    <div>
+        <a href="/"><img src="/image/cooking.jpg" width="50%" alt="SiwFood Logo"></a>
+    </div>
+
+    <div>
+        <a href="/login" th:unless="${userDetails}">Login</a>
+        <a href="/register" th:unless="${userDetails}">Registrati</a>
+    </div>
+
+
     <h1>Benvenuti nel sistema informativo</h1>
     <div>
         <a th:href="@{/cuochi}">Lista dei Cuochi</a>

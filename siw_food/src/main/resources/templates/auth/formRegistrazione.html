@@ -1,41 +1,39 @@
 <!DOCTYPE html>
+<html>
 <head>
-    <title>Registrazione</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
+
 <body>
-    <h1>Registrazione</h1>
-    <form th:action="@{/register}" method="post">
-        <div>
-            <label>Nome:</label>
-            <input type="text" name="nome" th:field="*{utente.nome}" />
-        </div>
-        <div>
-            <label>Cognome:</label>
-            <input type="text" name="cognome" th:field="*{utente.cognome}" />
-        </div>
-        <div>
-            <label>Luogo di Nascita:</label>
-            <input type="text" name="luogoDiNascita" th:field="*{utente.luogoDiNascita}" />
-        </div>
-        <div>
-            <label>Data di Nascita:</label>
-            <input type="date" name="dataNascita" th:field="*{utente.dataNascita}" />
-        </div>
-        <div>
-            <label>Email:</label>
-            <input type="email" name="email" th:field="*{utente.email}" />
-        </div>
-        <div>
-            <label>Username:</label>
-            <input type="text" name="username" th:field="*{credentials.username}" />
-        </div>
-        <div>
-            <label>Password:</label>
-            <input type="password" name="password" th:field="*{credentials.password}" />
-        </div>
-        <div>
-            <button type="submit">Registrati</button>
-        </div>
-    </form>
+    <div>
+
+
+        <form th:action="@{/register}" method="post">
+            <div>
+                <label for="username">Username</label>
+                <input type="text" th:field="${credentials.username}">
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" th:field="${credentials.password}">
+            </div>
+            <div>
+                <label for="nome">Nome</label>
+                <input type="text" th:field="${utente.nome}">
+            </div>
+            <div>
+                <label for="cognome">Cognome</label>
+                <input type="text" th:field="${utente.cognome}">
+            </div>
+            <div>
+                <button type="submit">Register</button>
+            </div>
+        </form>
+
+
+    </div>
+
 </body>
+
 </html>

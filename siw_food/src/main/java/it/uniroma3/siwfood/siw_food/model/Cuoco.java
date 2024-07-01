@@ -7,11 +7,14 @@ import java.util.Objects;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
 public class Cuoco {
@@ -21,14 +24,17 @@ public class Cuoco {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank
     private String nome;
-    
+    @NotBlank
     private String cognome;
 
+    @PastOrPresent
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dataNascita;
     
-    private String urlImage;
+    @ElementCollection
+    private List<Immagine> immagini;
     
     @OneToMany(mappedBy = "cuoco", cascade = CascadeType.ALL)
     private List<Ricetta> ricette;
@@ -40,10 +46,10 @@ public class Cuoco {
 
     }
 
-    public Cuoco(String nome, String cognome, String url, LocalDate dataNascita, List<Ricetta> ricette){
+    public Cuoco(String nome, String cognome, List<Immagine> immagini, LocalDate dataNascita, List<Ricetta> ricette){
         this.nome = nome;
         this.cognome = cognome;
-        this.urlImage = url;
+        this.immagini = immagini;
         this.dataNascita = dataNascita;
         this.ricette = ricette;
     }
@@ -65,7 +71,28 @@ public class Cuoco {
                Objects.equals(cognome, other.cognome) &&
                Objects.equals(dataNascita, other.dataNascita);
     }
+
+    @Override
+    public String toString(){
+        return this.nome + " " + this.cognome;
+    }
     /*FINE EQUALS & HASHCODE*/
+
+
+
+    /*METODI PER LE IMMAGINI*/
+    public Immagine getFirstImmagine(){
+        return this.immagini.get(0);
+    } 
+
+    public List<Immagine> getImmaginiDopoFirst(){
+        try {
+            return this.immagini.subList(1, this.immagini.size());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    /*METODI PER LE IMMAGINI*/
 
 
     /*GETTER & SETTER*/
@@ -114,14 +141,16 @@ public class Cuoco {
         return this.ricette;
     }
 
-    //url
-    public String getUrlImage() {
-        return urlImage;
+    //immagine
+    public List<Immagine> getImmagini() {
+        return immagini;
     }
 
-    public void setUrlImage(String uRL) {
-        urlImage = uRL;
+    public void setImmagini(List<Immagine> immagine) {
+        this.immagini = immagine;
     }
     /*FINE GETTER & SETTER*/
+
+    
     
 }

@@ -13,7 +13,7 @@ public class IngredienteService {
     private IngredienteRepository ingredienteRepository;
 
     public Ingrediente findById(Long id){
-        return this.ingredienteRepository.findById(id).get();
+        return this.ingredienteRepository.findById(id).orElse(null);
     }
 
     public Iterable<Ingrediente> findAll(){

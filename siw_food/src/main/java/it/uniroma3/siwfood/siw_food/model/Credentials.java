@@ -1,11 +1,14 @@
 package it.uniroma3.siwfood.siw_food.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Credentials {
@@ -20,17 +23,22 @@ public class Credentials {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank
     @Column(nullable = false)
     private String username;
+    
+    @NotBlank
     @Column(nullable = false)
     private String password;
+    
     @Column(nullable = false)
     private String role;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Utente utente;
     /*FINE ATTRIBUTI CREDENTIALS*/
 
+    
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -62,6 +70,13 @@ public class Credentials {
         return true;
     }
 
+
+    /*METODO CHE VERIFICA SE L'UTENTE E' ADMIN O MENO*/ 
+    public boolean isAdmin(){
+        return this.role.equals(ADMIN);
+    }
+
+    /*RESTITUISCONO I RUOLI*/
     public static String getUtenteGenerico() {
         return UTENTE_GENERICO;
     }
@@ -74,6 +89,7 @@ public class Credentials {
         return ADMIN;
     }
 
+    /*GETTERS & SETTERS*/
     public Long getId() {
         return id;
     }
@@ -113,6 +129,6 @@ public class Credentials {
     public void setUtente(Utente utente) {
         this.utente = utente;
     }
-
+    /*FINE GETTERS & SETTERS*/
     
 }

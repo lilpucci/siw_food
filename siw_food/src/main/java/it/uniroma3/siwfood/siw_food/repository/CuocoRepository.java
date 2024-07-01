@@ -1,6 +1,5 @@
 package it.uniroma3.siwfood.siw_food.repository;
 
-
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,5 +15,10 @@ public interface CuocoRepository extends CrudRepository<Cuoco, Long>{
     public Iterable<Cuoco> findByNomeOrderByCognomeAsc(String nome);
     //restituisce tutti i cuochi nati dopo una determinata data
     public Iterable<Cuoco> findByDataNascitaAfter(LocalDate dataNascita);
+
+    //TODO cerco spaghetti -> restituisce tutti i cuochi che hanno una ricetta che nel nome ha la parola spaghetti
+
+    //verifica la presenza di un cuoco nel db in base a nome e cognome
+    public boolean existsByNomeAndCognome(String nome,String cognome);
 
 }

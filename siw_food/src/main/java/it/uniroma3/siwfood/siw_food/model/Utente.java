@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Past;
 
 @Entity
 public class Utente {
@@ -18,14 +20,19 @@ public class Utente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @NotBlank
     private String nome;
+    @NotBlank
     private String cognome;
     
+
     private String luogoDiNascita;
 
+    @Past
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dataDiNascita;
     
+    //@NotBlank
     private String email;
     /*FINE ATTRIBUTI*/
 
@@ -62,8 +69,24 @@ public class Utente {
             return false;
         return true;
     }
+
+    //TODO toString
     /*FINE EQUALS & HASHCODE*/
- 
+    
+
+    /*COSTRUTTORI*/
+    public Utente(){
+
+    }
+
+    public Utente(String nome, String cognome, String email, String luogoDiNascita, LocalDate dataNascita){
+        this.nome = nome;
+        this.cognome = cognome;
+        this.email = email;
+        this.luogoDiNascita = luogoDiNascita;
+        this.dataDiNascita = dataNascita;
+    }
+    /*FINE COSTRUTTORI*/
 
     /*GETTER & SETTER*/
     public Long getId() {
