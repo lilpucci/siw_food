@@ -24,17 +24,17 @@
         </ul>
     </div>
     <div>
-        <a th:href="@{/admin/editCuoco/{id}(id=${cuoco.id})}">ADMIN EDIT</a>    
+        <a th:href="@{/admin/editCuoco/{id}(id=${cuoco.id})}">ADMIN EDIT CUOCO</a>    
     </div>
     <div>
-        <a th:href="@{/admin/deleteCuoco/{id}(id=${cuoco.id})}">ADMIN DELETE</a>    
+        <a th:href="@{/admin/deleteCuoco/{id}(id=${cuoco.id})}">ADMIN DELETE CUOCO</a>    
     </div>
     <div>
         <a th:href="@{/admin/addRicetta/{cuoco_id}(cuoco_id=${cuoco.id})}">ADMIN ADD RICETTA</a>    
     </div>
 
     <div>
-        <a th:href="@{/cuoco/addRicetta/{cuoco_id}/{utente_id}(cuoco_id=${cuoco.id}, utente_id=${credenziali.utente.id})}">CUOCO ADD RICETTA</a>    
+        <a th:href="@{/cuoco/addRicetta/{cuoco_id}/{utente_id}(cuoco_id=${cuoco.id},utente_id=${credenziali.utente.id})}">CUOCO ADD RICETTA</a>    
     </div>
 
     <div>

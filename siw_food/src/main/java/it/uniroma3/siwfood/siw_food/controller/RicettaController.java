@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import it.uniroma3.siwfood.siw_food.model.Ricetta;
+import it.uniroma3.siwfood.siw_food.model.auth.Utente;
 import it.uniroma3.siwfood.siw_food.service.CuocoService;
 //import it.uniroma3.siwfood.siw_food.service.IngredienteService;
 import it.uniroma3.siwfood.siw_food.service.RicettaService;
@@ -76,7 +77,7 @@ public class RicettaController {
     public String getAdminFormNewRicetta(@PathVariable("cuoco_id") Long id,Model model) {
         model.addAttribute("cuoco", this.cuocoService.findById(id));
         model.addAttribute("ricetta", new Ricetta());
-        return "forms/formNewRicetta.html";
+        return "admin/formNewRicetta.html";
     }
 
     //finalizza la creazione della ricetta
@@ -93,14 +94,15 @@ public class RicettaController {
     //porta alla form per l'inserimento di una nuova ricetta
     @GetMapping("/cuoco/addRicetta/{cuoco_id}/{utente_id}")
     public String getCuocoFormNewRicetta(@PathVariable("cuoco_id") Long idC, @PathVariable("utente_id") Long idU,Model model) {
-        
+        //se l'utente non corrisponde al cuoco per il quale sta provando ad aggiungere la ricetta
+        //torna a cuochi.html
         if(!(this.cuocoService.findById(idC).equals(this.utenteService.getUtente(idU).getCuoco()))){
-            return "redirect:/cuochi/" + idC;
+            return "redirect:/cuochi";
         }
-        
+        //altrimenti inserisce la ricetta
         model.addAttribute("cuoco", this.cuocoService.findById(idC));
         model.addAttribute("ricetta", new Ricetta());
-        return "forms/formNewRicettaCuoco.html";
+        return "cuoco/formNewRicettaCuoco.html";
     }
 
     //finalizza la creazione della ricetta
@@ -130,11 +132,28 @@ public class RicettaController {
     /*FINE AGGIORNAMENTO DEI DATI DI UNA RICETTA*/
 
     
-    /*CANCELLAZIONE*/
+    /*CANCELLAZIONE*/  //COME ADMIN
     @GetMapping("/admin/deleteRicetta/{id}")
-    public String deleteRicetteById(@PathVariable("id") Long id) {
-        this.ricettaService.deleteRicetta(id);
+    public String adminDeleteRicetta(@PathVariable("id") Long id) {
+        this.ricettaService.deleteRicettaById(id);
         return "redirect:/ricette";
+    }
+    /*FINE CANCELLAZIONE*/
+
+    /*CANCELLAZIONE*/  //COME REGISTRATO (cuoco)
+    @GetMapping("/cuoco/deleteRicetta/{ricetta_id}/{utente_id}")
+    public String cuocoDeleteRicetta(@PathVariable("ricetta_id") Long idR, @PathVariable("utente_id") Long idU) {
+        //prendo ricetta e utente
+        Ricetta ricetta = this.ricettaService.findById(idR);
+        Utente utente = this.utenteService.getUtente(idU);
+        //se il cuoco della ricetta è il cuoco associato all'utente -> proceed
+        if(ricetta.getCuoco().equals(utente.getCuoco())){
+            this.ricettaService.deleteRicetta(ricetta);
+            return "redirect:/ricette";
+        }//altrimenti rimandalo a ricette
+        else{
+            return "redirect:/ricette";
+        }
     }
     /*FINE CANCELLAZIONE*/
 

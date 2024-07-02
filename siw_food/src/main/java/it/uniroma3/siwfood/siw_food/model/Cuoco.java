@@ -1,6 +1,7 @@
 package it.uniroma3.siwfood.siw_food.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,7 +35,7 @@ public class Cuoco {
     private LocalDate dataNascita;
     
     @ElementCollection
-    private List<Immagine> immagini;
+    private List<Immagine> immagini = new ArrayList<>();
     
     @OneToMany(mappedBy = "cuoco", cascade = CascadeType.ALL)
     private List<Ricetta> ricette;
@@ -82,7 +83,12 @@ public class Cuoco {
 
     /*METODI PER LE IMMAGINI*/
     public Immagine getFirstImmagine(){
+        if(this.immagini == null){
+            return null;
+        }
+        else{
         return this.immagini.get(0);
+        }
     } 
 
     public List<Immagine> getImmaginiDopoFirst(){

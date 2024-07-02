@@ -69,7 +69,7 @@ public class CuocoController {
     @GetMapping("/admin/addCuoco")
     public String getFormNewCuoco(Model model) {
         model.addAttribute("cuoco", new Cuoco());
-        return "forms/formNewCuoco.html";
+        return "admin/formNewCuoco.html";
     }
 
     //finalizza la creazione e reindirizza alla pagina del cuoco appena creato
@@ -96,7 +96,7 @@ public class CuocoController {
     @GetMapping("/admin/editCuoco/{id}")
     public String getFormEditCuoco(@PathVariable("id") Long id, Model model) {
         model.addAttribute("cuoco", this.cuocoService.findById(id));
-        return "forms/formEditCuoco.html";
+        return "admin/formEditCuoco.html";
     }
 
     //fa partire l'aggiornamento dei dati verso il db

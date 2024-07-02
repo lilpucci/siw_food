@@ -1,24 +1,54 @@
 <!DOCTYPE html>
+<!-- Source Codes By CodingNepal - www.codingnepalweb.com -->
+<html lang="en">
 <head>
-    <title>Login</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Form in HTML and CSS</title>
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-<h1>Login</h1>
+  <div class="login_form">
+    <!-- Login form container -->
     <form th:action="@{/login}" method="post">
-        <div>
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username">
+      <h3>Log in with</h3>
+      <div class="login_option">
+        <!-- Google button 
+        <div class="option">
+          <a href="#">
+            <img src="logos/google.png" alt="Google" />
+            <span>Google</span>
+          </a>
+        </div>  -->
+        <!-- Apple button 
+        <div class="option">
+          <a href="#">
+            <img src="logos/apple.png" alt="Apple" />
+            <span>Apple</span>
+          </a>
+        </div> -->
+      </div>
+      <!-- Login option separator -->
+      <p class="separator">
+        <span>or</span>
+      </p>
+      <!-- Username input box -->
+      <div class="input_box">
+        <label for="username">username</label>
+        <input type="text" id="username" name="username" placeholder="Enter username" required />
+      </div>
+      <!-- Paswwrod input box -->
+      <div class="input_box">
+        <div class="password_title">
+          <label for="password">Password</label>
+          <a href="#">Forgot Password?</a>
         </div>
-        <div>
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password">
-        </div>
-        <div>
-            <button type="submit">Login</button>
-        </div>
-        <div>
-            <a th:href="@{/register}">Register</a>
-        </div>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required />
+      </div>
+       <!-- Login button -->
+      <button type="submit">Log In</button>
+      <p class="sign_up">Don't have an account? <a th:href="@{/register}">REGISTRATI</a></p>
     </form>
+  </div>
 </body>
 </html>

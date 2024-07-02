@@ -45,10 +45,13 @@ public class RicettaService {
     }
 
     //cancellazione
-    public void deleteRicetta(Long id){
+    public void deleteRicettaById(Long id){
         this.ricettaRepository.deleteById(id);
     }
-
+    
+    public void deleteRicetta(Ricetta ricetta){
+        this.ricettaRepository.delete(ricetta);
+    }
 
     /*UTILIZZO DI ALTRI SERVICE*/
     public void saveIngredienteToRicetta (Long idRicetta, Long idIngr, String nome, String quantita){

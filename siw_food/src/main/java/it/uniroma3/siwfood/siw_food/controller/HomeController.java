@@ -57,7 +57,7 @@ public class HomeController {
         return "auth/login.html";
     }
 
-    @GetMapping("/success")
+    @GetMapping("/success")   //se il login ha successo si va all'homepage
     public String getHomeAfterLogin(Model model) {
         
         //capire come vengono passati  o comunque cosa ci fanno
@@ -69,7 +69,7 @@ public class HomeController {
 
 
     //REGISTRAZIONE
-    @GetMapping("/register")
+    @GetMapping("/register")  //quando un utente si registra viene creata anche la pagina del cuoco associata
     public String getRegisterForm(Model model) {
         
         model.addAttribute("cuoco", new Cuoco());

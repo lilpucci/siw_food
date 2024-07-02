@@ -45,13 +45,13 @@ public class AuthConfiguration {
                         // chiunque (autenticato o no) può accedere alle pagine index, login, register, ai css e alle immagini
                         .requestMatchers(HttpMethod.GET, "/", "/login", "/register", "/cuochi/**", "/ricette/**" , "/css/**", "/image/**").permitAll()  //tolto le icon
                         // chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register
-                        .requestMatchers(HttpMethod.POST, "/register", "/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/", "/login", "/register", "/cuochi/**", "/ricette/**").permitAll()
                         //solo admin e utenti registrati possono aggiungere-cancellare-modificare risorse  (controlla che chi non è admin lavori per le sue risorse)
-                        .requestMatchers(HttpMethod.GET, "CI VANNO LE OPERAZIONI DEL CUOCO").hasAnyAuthority("ADMIN","REGISTRATO")
-                        .requestMatchers(HttpMethod.POST, "CI VANNO LE OPERAZIONI DEL CUOCO").hasAnyAuthority("ADMIN","REGISTRATO")
+                        .requestMatchers(HttpMethod.GET, "/cuoco/**").hasAnyAuthority("ADMIN","REGISTRATO")
+                        .requestMatchers(HttpMethod.POST, "/cuoco/**").hasAnyAuthority("ADMIN","REGISTRATO")
                         // solo gli utenti autenticati con ruolo ADMIN possono accedere a risorse con path /admin/**
-                        .requestMatchers(HttpMethod.GET, "/admin/**").permitAll()           //.hasAnyAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/admin/**").permitAll()              //.hasAnyAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority("ADMIN")
                         // tutti gli utenti autenticati possono accere alle pag
                         .anyRequest().authenticated())
                         

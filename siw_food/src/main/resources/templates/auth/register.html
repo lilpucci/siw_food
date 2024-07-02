@@ -1,49 +1,68 @@
 <!DOCTYPE html>
-<html>
+<!-- Source Codes By CodingNepal - www.codingnepalweb.com -->
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Form in HTML and CSS</title>
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
-
 <body>
-    <div>
-        <form th:action="@{/register}" method="post" enctype="multipart/form-data" th:object="${cuoco}">
-            
-            <div>
-                <label for="username">Username</label>
-                <input type="text" th:field="${credentials.username}">
-            </div>
-            <div>
-                <label for="password">Password</label>
-                <input type="password" th:field="${credentials.password}">
-            </div>
-            
-            <div>
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" th:field="${utente.nome}" required>
-            </div>
-            <div>
-                <label for="cognome">Cognome:</label>
-                <input type="text" id="cognome" th:field="${utente.cognome}" required>
-            </div>
-            <div>
-                <label for="dataNascita">Data di Nascita:</label>
-                <input type="date" id="dataNascita" th:field="${utente.dataNascita}" required>
-            </div>
-
-            <div>
-                <label for="immagine">Immagine:</label>
-                <input type="file" id="immagine" name="immagine" accept="image/*" required>
-            </div>
-            
-            <div>
-                <button type="submit">Salva</button>
-            </div>
-
-        </form>
-
-    </div>
-
+  <div class="login_form">
+    <!-- Login form container -->
+    <form th:action="@{/register}" method="post" enctype="multipart/form-data" th:object="${cuoco}">
+      <h3>Log in with</h3>
+      <!-- Login option separator -->
+      <p class="separator">
+        <span>or</span>
+      </p>
+      <!-- Username input box -->
+      <div class="input_box">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter username" th:field="${credentials.username}" required />
+      </div>
+      <!-- Paswwrod input box -->
+      <div class="input_box">
+        <div class="password_title">
+          <label for="password">Password</label>
+        </div>
+        <input type="password" id="password" name="password" placeholder="Enter your password" th:field="${credentials.password}" required />
+      </div>
+      <!-- Nome input box -->
+      <div class="input_box">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" placeholder="Enter your name" th:field="${utente.nome}" required />
+      </div>
+      <!-- Cognome input box -->
+      <div class="input_box">
+        <label for="cognome">Cognome</label>
+        <input type="text" id="cognome" name="cognome" placeholder="Enter your surname" th:field="${utente.cognome}" required />
+      </div>
+      <!-- Data Nascita input box -->
+      <div class="input_box">
+        <label for="dataNascita">Data di nascita</label>
+        <input type="date" id="dataNascita" name="dataNascita" placeholder="Enter your birthdate" th:field="${utente.dataNascita}" required />
+      </div>
+      <div>
+        <label for="immagine">Immagine:</label>
+        <input type="file" id="immagine" name="immagine" accept="image/*" required>
+      </div>
+       <!-- Login button -->
+      <button type="submit">Register</button>
+      <p class="sign_up">Are you alredy registered? <a th:href="@{/login}">LOGIN</a></p>
+    </form>
+  </div>
 </body>
-
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

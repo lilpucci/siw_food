@@ -15,25 +15,24 @@
         <h3>Ingredienti</h3>
         <ul>
             <li th:each="ingrediente : ${ricetta.ingredienti}">
-                <span th:text="${ingrediente.nome}">Nome Ingrediente</span>: 
+                <span th:text="${ingrediente.nome}">Nome Ingrediente</span> 
                 <span th:text="${ingrediente.quantita}">Quantità Ingrediente</span>
             </li>
         </ul>
     </div>
 
-    <div>
-        <a th:href="@{/admin/editRicetta/{id}(id=${ricetta.id})}">Modifica la Ricetta</a>
-    </div>
-
-    <div>
-        <a th:href="@{/admin/deleteRicetta/{id}(id=${ricetta.id})}">Elimina la Ricetta</a>
-    </div>
+   
     
     <div>
         <h3>Proposta da</h3>
         <p th:text="${ricetta.cuoco.nome} + ' ' + ${ricetta.cuoco.cognome}">Nome Cuoco</p>
     </div>
     
+    <div>
+        <a th:href="@{/admin/editRicetta/{id}(id=${ricetta.id})}">Modifica la Ricetta</a>
+        <a th:href="@{/admin/deleteRicetta/{id}(id=${ricetta.id})}">Elimina la Ricetta</a>
+    </div>
+
     <div>
         <a th:href="@{/ricette}">Torna alla lista delle Ricette</a>
     </div>

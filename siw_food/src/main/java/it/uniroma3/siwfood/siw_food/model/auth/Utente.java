@@ -39,14 +39,14 @@ public class Utente {
     private Cuoco cuoco;
     
     //@NotBlank
-    private String email;
+    //private String email;
     /*FINE ATTRIBUTI*/
 
 
     /*EQUALS & HASHCODE*/
     @Override
     public int hashCode() {
-        return Objects.hash(nome,cognome,email);
+        return Objects.hash(nome,cognome/*,email*/);
     }
 
     @Override
@@ -68,11 +68,11 @@ public class Utente {
                 return false;
         } else if (!cognome.equals(other.cognome))
             return false;
-        if (email == null) {
+        /*if (email == null) {
             if (other.email != null)
                 return false;
         } else if (!email.equals(other.email))
-            return false;
+            return false;*/
         return true;
     }
     //TODO toString
@@ -84,10 +84,10 @@ public class Utente {
 
     }
 
-    public Utente(String nome, String cognome, String email, /*String luogoDiNascita,*/ LocalDate dataNascita){
+    public Utente(String nome, String cognome, /*String email, String luogoDiNascita,*/ LocalDate dataNascita){
         this.nome = nome;
         this.cognome = cognome;
-        this.email = email;
+        //this.email = email;
         //this.luogoDiNascita = luogoDiNascita;
         this.dataNascita = dataNascita;
     }
@@ -135,13 +135,13 @@ public class Utente {
         this.dataNascita = dataNascita;
     }
 
-    public String getEmail() {
+    /*public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
+    }*/
 
     public Cuoco getCuoco() {
         return cuoco;
