@@ -14,7 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Past;
 
 @Entity
 public class Cuoco {
@@ -29,7 +29,7 @@ public class Cuoco {
     @NotBlank
     private String cognome;
 
-    @PastOrPresent
+    @Past
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dataNascita;
     
@@ -40,7 +40,7 @@ public class Cuoco {
     private List<Ricetta> ricette;
     /*FINE ATTRIBUTI*/
 
-    
+
     /*COSTRUTTORI*/
     public Cuoco(){
 

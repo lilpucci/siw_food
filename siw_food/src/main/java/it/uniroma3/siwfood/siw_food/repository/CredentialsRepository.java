@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import it.uniroma3.siwfood.siw_food.model.Credentials;
+import it.uniroma3.siwfood.siw_food.model.auth.Credentials;
 
 @Repository
 public interface CredentialsRepository extends CrudRepository<Credentials, Long>{

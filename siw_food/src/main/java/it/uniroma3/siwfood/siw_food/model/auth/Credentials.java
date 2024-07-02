@@ -1,4 +1,6 @@
-package it.uniroma3.siwfood.siw_food.model;
+package it.uniroma3.siwfood.siw_food.model.auth;
+
+import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -41,11 +43,7 @@ public class Credentials {
     
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((username == null) ? 0 : username.hashCode());
-        result = prime * result + ((password == null) ? 0 : password.hashCode());
-        return result;
+        return Objects.hash(username);
     }
 
     @Override

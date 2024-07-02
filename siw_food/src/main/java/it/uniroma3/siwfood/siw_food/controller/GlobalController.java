@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import it.uniroma3.siwfood.siw_food.model.Credentials;
+import it.uniroma3.siwfood.siw_food.model.auth.Credentials;
 import it.uniroma3.siwfood.siw_food.service.CredentialsService;
 
 @ControllerAdvice

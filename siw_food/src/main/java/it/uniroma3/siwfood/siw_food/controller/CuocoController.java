@@ -28,7 +28,7 @@ public class CuocoController {
     @Autowired
     private ImmagineService immagineService;
 
-    /*RICERCHE*/
+    /*RICERCHE*/   //LE POSSONO FARE TUTTI (NON REGISTRATO, REGISTRATO, ADMIN)
     //restituisce una pagina con tutti i cuochi
     @GetMapping("/cuochi")
     public String getCuochi(Model model) {
@@ -64,7 +64,7 @@ public class CuocoController {
     }
     /*FINE RICERCHE*/
 
-    /*SALVATAGGIO CUOCHI*/
+    /*SALVATAGGIO CUOCHI*/  
     //porta alla pagina in cui si inseriscono i dati per il nuovo cuoco
     @GetMapping("/admin/addCuoco")
     public String getFormNewCuoco(Model model) {

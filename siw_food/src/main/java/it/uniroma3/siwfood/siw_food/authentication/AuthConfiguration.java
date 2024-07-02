@@ -43,7 +43,7 @@ public class AuthConfiguration {
                 // AUTORIZZAZIONE: qui definiamo chi può accedere a cosa
                 .authorizeHttpRequests( authorize -> authorize
                         // chiunque (autenticato o no) può accedere alle pagine index, login, register, ai css e alle immagini
-                        .requestMatchers(HttpMethod.GET, "/", "/home", "/register", "/css/**", "/image/**", "favicon.ico").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/", "/login", "/register", "/cuochi/**", "/ricette/**" , "/css/**", "/image/**").permitAll()  //tolto le icon
                         // chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register
                         .requestMatchers(HttpMethod.POST, "/register", "/login").permitAll()
                         //solo admin e utenti registrati possono aggiungere-cancellare-modificare risorse  (controlla che chi non è admin lavori per le sue risorse)

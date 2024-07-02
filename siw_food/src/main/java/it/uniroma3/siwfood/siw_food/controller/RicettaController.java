@@ -12,6 +12,8 @@ import it.uniroma3.siwfood.siw_food.model.Ricetta;
 import it.uniroma3.siwfood.siw_food.service.CuocoService;
 //import it.uniroma3.siwfood.siw_food.service.IngredienteService;
 import it.uniroma3.siwfood.siw_food.service.RicettaService;
+import it.uniroma3.siwfood.siw_food.service.UtenteService;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -26,11 +28,14 @@ public class RicettaController {
     @Autowired
     private CuocoService cuocoService;
 
+    @Autowired
+    private UtenteService utenteService;
+
     //@Autowired
     //private IngredienteService ingredienteService;
 
 
-    /*RICERCHE*/
+    /*RICERCHE*/   //LE POSSONO FARE TUTTI
     //risponde all richiesta get che mi indirizza al template che mostra tutte le ricette
     @GetMapping("/ricette")   
     public String getRicette(Model model) {
@@ -65,10 +70,10 @@ public class RicettaController {
     /*FINE RICERCHE*/
 
 
-    /*INSERIMENTO NUOVE RICETTE*/
+    /*INSERIMENTO NUOVE RICETTE*/  //COME ADMIN
     //porta alla form per l'inserimento di una nuova ricetta
     @GetMapping("/admin/addRicetta/{cuoco_id}")
-    public String getFormNewRicetta(@PathVariable("cuoco_id") Long id,Model model) {
+    public String getAdminFormNewRicetta(@PathVariable("cuoco_id") Long id,Model model) {
         model.addAttribute("cuoco", this.cuocoService.findById(id));
         model.addAttribute("ricetta", new Ricetta());
         return "forms/formNewRicetta.html";
@@ -76,7 +81,31 @@ public class RicettaController {
 
     //finalizza la creazione della ricetta
     @PostMapping("/admin/addRicetta/{cuoco_id}")
-    public String postNewRicetta(@PathVariable("cuoco_id") Long id, @ModelAttribute Ricetta ricetta) {
+    public String postAdminNewRicetta(@PathVariable("cuoco_id") Long id, @ModelAttribute Ricetta ricetta) {
+        ricetta.setCuoco(this.cuocoService.findById(id));
+        this.ricettaService.saveRicetta(ricetta);
+        return "redirect:/cuochi/" + id;
+    }
+    /*FINE INSERIMENTO NUOVE RICETTE*/
+
+
+    /*INSERIMENTO NUOVE RICETTE*/  //COME REGISTRATO (cuoco)
+    //porta alla form per l'inserimento di una nuova ricetta
+    @GetMapping("/cuoco/addRicetta/{cuoco_id}/{utente_id}")
+    public String getCuocoFormNewRicetta(@PathVariable("cuoco_id") Long idC, @PathVariable("utente_id") Long idU,Model model) {
+        
+        if(!(this.cuocoService.findById(idC).equals(this.utenteService.getUtente(idU).getCuoco()))){
+            return "redirect:/cuochi/" + idC;
+        }
+        
+        model.addAttribute("cuoco", this.cuocoService.findById(idC));
+        model.addAttribute("ricetta", new Ricetta());
+        return "forms/formNewRicettaCuoco.html";
+    }
+
+    //finalizza la creazione della ricetta
+    @PostMapping("/cuoco/addRicetta/{cuoco_id}")
+    public String postCuocoNewRicetta(@PathVariable("cuoco_id") Long id, @ModelAttribute Ricetta ricetta) {
         ricetta.setCuoco(this.cuocoService.findById(id));
         this.ricettaService.saveRicetta(ricetta);
         return "redirect:/cuochi/" + id;

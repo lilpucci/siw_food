@@ -5,9 +5,7 @@
 <body>
     <h1>Dettagli del Cuoco</h1>
     
-    <div>
-        <img th:if="${cuoco.getFirstImmagine() != null}" th:src="'data:image/jpeg;base64,' + ${cuoco.getFirstImmagine().getBase64()}" width="30%"/>
-    </div>
+    
     
     <div>
         <h2 th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}"></h2>
@@ -26,14 +24,19 @@
         </ul>
     </div>
     <div>
-        <a th:href="@{/admin/editCuoco/{id}(id=${cuoco.id})}">edita</a>    
+        <a th:href="@{/admin/editCuoco/{id}(id=${cuoco.id})}">ADMIN EDIT</a>    
     </div>
     <div>
-        <a th:href="@{/admin/deleteCuoco/{id}(id=${cuoco.id})}">elimina</a>    
+        <a th:href="@{/admin/deleteCuoco/{id}(id=${cuoco.id})}">ADMIN DELETE</a>    
     </div>
     <div>
-        <a th:href="@{/admin/addRicetta/{cuoco_id}(cuoco_id=${cuoco.id})}">aggiungi ricetta</a>    
+        <a th:href="@{/admin/addRicetta/{cuoco_id}(cuoco_id=${cuoco.id})}">ADMIN ADD RICETTA</a>    
     </div>
+
+    <div>
+        <a th:href="@{/cuoco/addRicetta/{cuoco_id}/{utente_id}(cuoco_id=${cuoco.id}, utente_id=${credenziali.utente.id})}">CUOCO ADD RICETTA</a>    
+    </div>
+
     <div>
         <a th:href="@{/cuochi}">torna alla lista dei cuochi</a>    
     </div>

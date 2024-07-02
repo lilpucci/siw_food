@@ -3,7 +3,7 @@ package it.uniroma3.siwfood.siw_food.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.uniroma3.siwfood.siw_food.model.Utente;
+import it.uniroma3.siwfood.siw_food.model.auth.Utente;
 import it.uniroma3.siwfood.siw_food.repository.UtenteRepository;
 
 @Service

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <div>
+        <form th:action="@{/register}" method="post" enctype="multipart/form-data" th:object="${cuoco}">
+            
+            <div>
+                <label for="username">Username</label>
+                <input type="text" th:field="${credentials.username}">
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" th:field="${credentials.password}">
+            </div>
+            
+            <div>
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" th:field="${utente.nome}" required>
+            </div>
+            <div>
+                <label for="cognome">Cognome:</label>
+                <input type="text" id="cognome" th:field="${utente.cognome}" required>
+            </div>
+            <div>
+                <label for="dataNascita">Data di Nascita:</label>
+                <input type="date" id="dataNascita" th:field="${utente.dataNascita}" required>
+            </div>
+
+            <div>
+                <label for="immagine">Immagine:</label>
+                <input type="file" id="immagine" name="immagine" accept="image/*" required>
+            </div>
+            
+            <div>
+                <button type="submit">Salva</button>
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

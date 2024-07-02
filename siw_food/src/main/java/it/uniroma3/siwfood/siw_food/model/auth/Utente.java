@@ -1,14 +1,18 @@
-package it.uniroma3.siwfood.siw_food.model;
+package it.uniroma3.siwfood.siw_food.model.auth;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import it.uniroma3.siwfood.siw_food.model.Cuoco;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
 
@@ -25,12 +29,14 @@ public class Utente {
     @NotBlank
     private String cognome;
     
-
-    private String luogoDiNascita;
+    //private String luogoDiNascita;
 
     @Past
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private LocalDate dataDiNascita;
+    private LocalDate dataNascita;
+    
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Cuoco cuoco;
     
     //@NotBlank
     private String email;
@@ -69,7 +75,6 @@ public class Utente {
             return false;
         return true;
     }
-
     //TODO toString
     /*FINE EQUALS & HASHCODE*/
     
@@ -79,14 +84,15 @@ public class Utente {
 
     }
 
-    public Utente(String nome, String cognome, String email, String luogoDiNascita, LocalDate dataNascita){
+    public Utente(String nome, String cognome, String email, /*String luogoDiNascita,*/ LocalDate dataNascita){
         this.nome = nome;
         this.cognome = cognome;
         this.email = email;
-        this.luogoDiNascita = luogoDiNascita;
-        this.dataDiNascita = dataNascita;
+        //this.luogoDiNascita = luogoDiNascita;
+        this.dataNascita = dataNascita;
     }
     /*FINE COSTRUTTORI*/
+
 
     /*GETTER & SETTER*/
     public Long getId() {
@@ -113,20 +119,20 @@ public class Utente {
         this.cognome = cognome;
     }
 
-    public String getLuogoDiNascita() {
+    /*public String getLuogoDiNascita() {
         return luogoDiNascita;
     }
 
     public void setLuogoDiNascita(String luogoDiNascita) {
         this.luogoDiNascita = luogoDiNascita;
+    }*/
+
+    public LocalDate getDataNascita() {
+        return dataNascita;
     }
 
-    public LocalDate getDataDiNascita() {
-        return dataDiNascita;
-    }
-
-    public void setDataDiNascita(LocalDate dataDiNascita) {
-        this.dataDiNascita = dataDiNascita;
+    public void setDataNascita(LocalDate dataNascita) {
+        this.dataNascita = dataNascita;
     }
 
     public String getEmail() {
@@ -136,5 +142,15 @@ public class Utente {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Cuoco getCuoco() {
+        return cuoco;
+    }
+
+    public void setCuoco(Cuoco cuoco) {
+        this.cuoco = cuoco;
+    }
     /*FINE GETTER & SETTER*/
+
+    
 }

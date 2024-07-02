@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import it.uniroma3.siwfood.siw_food.model.Credentials;
+import it.uniroma3.siwfood.siw_food.model.auth.Credentials;
 import it.uniroma3.siwfood.siw_food.repository.CredentialsRepository;
 
 @Service
