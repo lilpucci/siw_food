@@ -30,7 +30,15 @@
     
     <div>
         <a th:href="@{/admin/editRicetta/{id}(id=${ricetta.id})}">Modifica la Ricetta</a>
-        <a th:href="@{/admin/deleteRicetta/{id}(id=${ricetta.id})}">Elimina la Ricetta</a>
+        <a th:href="@{/admin/deleteRicetta/{id}(id=${ricetta.id})}">Elimina la Ricetta da admin</a>
+    </div>
+
+    <div>
+        <a th:href="@{/cuoco/editRicetta/{ricetta_id}/{utente_id}(ricetta_id=${ricetta.id},utente_id=${credenziali.utente.id})}">CUOCO ADD INGREDIENTE</a>
+    </div>
+
+    <div>
+        <a th:href="@{/cuoco/deleteRicetta/{ricetta_id}/{utente_id}(ricetta_id=${ricetta.id},utente_id=${credenziali.utente.id})}">CUOCO DELETE RICETTA</a>
     </div>
 
     <div>

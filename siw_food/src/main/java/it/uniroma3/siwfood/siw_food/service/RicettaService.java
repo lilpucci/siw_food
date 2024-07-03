@@ -35,8 +35,8 @@ public class RicettaService {
         return this.ricettaRepository.findByNome(nome);
     }
 
-    public Iterable<Ricetta> findByIngredienteNome(String nomeIngrediente){
-        return this.findByIngredienteNome(nomeIngrediente);
+    public Iterable<Ricetta> findByIngrediente(String nomeIngrediente){
+        return this.ricettaRepository.findByIngredienteNome(nomeIngrediente);
     }
 
     //salvataggio

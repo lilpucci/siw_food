@@ -109,11 +109,11 @@ public class CuocoController {
     /*FINE AGGIORNAMENTO DATI*/
     
 
-    /*CANCELLAZIONE CUOCHI*/
+    /*CANCELLAZIONE CUOCHI*/  //ADMIN
     //cancella un cuoco in base all'id
     @GetMapping("/admin/deleteCuoco/{id}")
     public String deleteCuocoById(@PathVariable("id") Long id) {
-        cuocoService.deleteCuoco(id);
+        this.cuocoService.deleteCuoco(id);
         return "redirect:/cuochi";
     }
     /*FINE CANCELLAZIONE CUOCHI*/

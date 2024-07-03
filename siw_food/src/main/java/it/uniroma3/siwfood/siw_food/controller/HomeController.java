@@ -1,7 +1,7 @@
 package it.uniroma3.siwfood.siw_food.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siwfood.siw_food.model.Cuoco;
-import it.uniroma3.siwfood.siw_food.model.Immagine;
+//import it.uniroma3.siwfood.siw_food.model.Immagine;
 import it.uniroma3.siwfood.siw_food.model.auth.Credentials;
 import it.uniroma3.siwfood.siw_food.model.auth.Utente;
 import it.uniroma3.siwfood.siw_food.service.CredentialsService;
@@ -88,19 +88,9 @@ public class HomeController {
                                 @RequestParam("immagine") MultipartFile immagine,
                                 Model model) throws IOException {
 
-        if(!immagine.isEmpty()){
-            Immagine img = new Immagine();
-            img.setFileName(immagine.getOriginalFilename());
-            img.setImageData(immagine.getBytes());
-            if (cuoco.getImmagini() == null) {
-                cuoco.setImmagini(new ArrayList<>());
-            }
-            cuoco.getImmagini().add(img);
-            this.immagineService.save(img);
-        }
+        this.immagineService.addFotoToCuoco(cuoco, immagine);
         
         if(!utenteBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()){
-            
             
             //cuoco
             cuoco.setNome(utente.getNome());

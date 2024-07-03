@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import it.uniroma3.siwfood.siw_food.model.Cuoco;
+import it.uniroma3.siwfood.siw_food.model.Ingrediente;
 import it.uniroma3.siwfood.siw_food.model.Ricetta;
 import it.uniroma3.siwfood.siw_food.model.auth.Utente;
 import it.uniroma3.siwfood.siw_food.service.CuocoService;
-//import it.uniroma3.siwfood.siw_food.service.IngredienteService;
+import it.uniroma3.siwfood.siw_food.service.IngredienteService;
 import it.uniroma3.siwfood.siw_food.service.RicettaService;
 import it.uniroma3.siwfood.siw_food.service.UtenteService;
 
@@ -32,8 +34,8 @@ public class RicettaController {
     @Autowired
     private UtenteService utenteService;
 
-    //@Autowired
-    //private IngredienteService ingredienteService;
+    @Autowired
+    private IngredienteService ingredienteService;
 
 
     /*RICERCHE*/   //LE POSSONO FARE TUTTI
@@ -65,7 +67,7 @@ public class RicettaController {
     //metodo che invia il nome dell'ingrediente in base al quale effettuare la ricerca -> restituisce ricette.html con tutti le ricette con quell'ingrediente
     @PostMapping("/ricette/byIngrediente")
     public String postRicetteByIngrediente(@RequestParam String ingr, Model model) {
-        model.addAttribute("ricette", this.ricettaService.findByIngredienteNome(ingr));
+        model.addAttribute("ricette", this.ricettaService.findByIngrediente(ingr));
         return "ricette.html";
     }
     /*FINE RICERCHE*/
@@ -115,23 +117,52 @@ public class RicettaController {
     /*FINE INSERIMENTO NUOVE RICETTE*/
 
 
-    /*AGGIORNAMENTO DEI DATI DI UNA RICETTA*/
+    /*AGGIORNAMENTO DEI DATI DI UNA RICETTA*/  //COME ADMIN
     //porta alla form per l'edit di una ricetta
     @GetMapping("/admin/editRicetta/{id}")
     public String getFormEditRicetta(@PathVariable("id") Long id, Model model) {
         model.addAttribute("ricetta", this.ricettaService.findById(id));
+        model.addAttribute("ingrediente", new Ingrediente());
         return "forms/formEditRicetta.html";
     }
     //aggiorna i dati 
     @PostMapping("/admin/editRicetta/{id}")
-    public String updateRicetta(@PathVariable("id") Long id, @ModelAttribute Ricetta ricetta) {
+    public String updateRicetta(@PathVariable("id") Long id, @ModelAttribute Ricetta ricetta, @ModelAttribute Ingrediente ingrediente) {
         ricetta.setId(id);
+        ingrediente.setRicetta(ricetta);
+        this.ingredienteService.saveIngrediente(ingrediente);
+        ricetta.getIngredienti().add(ingrediente);
         this.ricettaService.saveRicetta(ricetta);
         return "redirect:/ricette/" + ricetta.getId();
     }
     /*FINE AGGIORNAMENTO DEI DATI DI UNA RICETTA*/
 
-    
+      
+    /*AGGIORNAMENTO DEI DATI DI UNA RICETTA*/  //COME REGISTRATO
+    //porta alla form per l'edit di una ricetta
+    @GetMapping("/cuoco/editRicetta/{ricetta_id}/{utente_id}")
+    public String getCuocoFormEditRicetta(@PathVariable("ricetta_id") Long idR,@PathVariable("utente_id") Long idU, Model model) {
+        Cuoco cuoco = this.utenteService.getUtente(idU).getCuoco();
+        Ricetta ricetta = this.ricettaService.findById(idR);
+        if(!(ricetta.getCuoco().equals(cuoco))){
+            return "redirect:/ricette/" + idR;
+        }
+        model.addAttribute("ricetta", ricetta);
+        model.addAttribute("ingrediente", new Ingrediente());
+        return "forms/formEditRicetta.html";
+    }
+    //aggiorna i dati 
+    @PostMapping("/cuoco/editRicetta/{ricetta_id}")
+    public String updateCuocoRicetta(@PathVariable("ricetta_id") Long idR, @ModelAttribute Ricetta ricetta, @ModelAttribute Ingrediente ingrediente) {
+        ricetta.setId(idR);
+        ingrediente.setRicetta(ricetta);
+        this.ingredienteService.saveIngrediente(ingrediente);
+        ricetta.getIngredienti().add(ingrediente);
+        this.ricettaService.saveRicetta(ricetta);
+        return "redirect:/ricette/" + ricetta.getId();
+    }
+    /*FINE AGGIORNAMENTO DEI DATI DI UNA RICETTA*/
+
     /*CANCELLAZIONE*/  //COME ADMIN
     @GetMapping("/admin/deleteRicetta/{id}")
     public String adminDeleteRicetta(@PathVariable("id") Long id) {
