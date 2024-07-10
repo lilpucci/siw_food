@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<head>
+    <title>MODIFICA RICETTA</title>
+</head>
+
+<body>
+<!-- qui mostro i dati relativi alla ricetta -->
+
+    <div th:if="${ricetta.immagini}">
+        <img th:if="${ricetta.getFirstImmagine() != null}" th:src="'data:image/jpeg;base64,' + ${ricetta.getFirstImmagine().getBase64()}" width="30%"/>
+    </div>
+
+    <div>
+        <h2 th:text="${ricetta.nome}">Nome della Ricetta</h2>
+        <p th:text="${ricetta.descrizione}">Descrizione della Ricetta</p>
+    </div>
+    
+    <div>
+        <h3>Ingredienti</h3>
+        <div th:if="${#lists.isEmpty(ricetta.ingredienti)}">
+            <p>attualmente senza ingredienti</p>
+        </div>
+        <ul>
+            <li th:each="ingrediente : ${ricetta.ingredienti}">
+                <span th:text="${ingrediente.nome}">Nome Ingrediente</span> 
+                <span th:text="${ingrediente.quantita}">Quantità Ingrediente</span>
+            </li>
+        </ul>
+    </div>
+
+<!-- qui metto il form che fa la conferma quindi fine  -->
+<form th:action="@{/admin/editRicetta/{ricetta_id}(ricetta_id=${ricetta.id})}" enctype="multipart/form-data" th:object="${ricetta}" method="post">
+        
+    <div>
+       <label for="nome">Nome:</label>
+       <input type="text" id="nome" th:field="*{nome}" />
+   </div>
+   
+   <div>
+       <label for="descrizione">Descrizione:</label>
+       <input type="text" id="descrizione" th:field="*{descrizione}" />
+   </div>
+   
+   <div>
+       <label for="immagine">Immagine:</label>
+       <input type="file" id="immagine" name="immagine" accept="image/*" required>
+   </div>
+
+   <div>
+       <button type="submit">Save</button>
+   </div>
+
+</form>
+
+
+<!-- qui metto il form che fa l'aggiunta di un ingrediente mi riporta a questa pagina  -->
+    <form th:action="@{/admin/addIngrediente/{ricetta_id}(ricetta_id = ${ricetta.id})}" th:object="${ingrediente}" method="post">
+
+        <div>
+            <label for="nome">Nome Ingrediente:</label>
+            <input type="text" id="nome" th:field="*{nome}" placeholder="Nome Ingrediente">
+        </div>
+        <div>
+            <label for="quantita">Quantità Ingrediente:</label>
+            <input type="text" id="quantita" th:field="*{quantita}" placeholder="Quantità Ingrediente">
+        </div>
+
+        <div>
+            <button type="submit">AGGIUNGI INGREDIENTE</button>
+        </div>
+    </form>
+
+</body>
+
+
+
+</html>

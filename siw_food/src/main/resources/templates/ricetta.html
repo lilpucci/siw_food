@@ -5,6 +5,10 @@
 </head>
 <body>
     <h1>Dettagli della Ricetta</h1>
+
+    <div th:if="${ricetta.immagini}">
+        <img th:if="${ricetta.getFirstImmagine() != null}" th:src="'data:image/jpeg;base64,' + ${ricetta.getFirstImmagine().getBase64()}" width="30%"/>
+    </div>
     
     <div>
         <h2 th:text="${ricetta.nome}">Nome della Ricetta</h2>
@@ -29,16 +33,8 @@
     </div>
     
     <div>
-        <a th:href="@{/admin/editRicetta/{id}(id=${ricetta.id})}">Modifica la Ricetta</a>
-        <a th:href="@{/admin/deleteRicetta/{id}(id=${ricetta.id})}">Elimina la Ricetta da admin</a>
-    </div>
-
-    <div>
-        <a th:href="@{/cuoco/editRicetta/{ricetta_id}/{utente_id}(ricetta_id=${ricetta.id},utente_id=${credenziali.utente.id})}">CUOCO ADD INGREDIENTE</a>
-    </div>
-
-    <div>
-        <a th:href="@{/cuoco/deleteRicetta/{ricetta_id}/{utente_id}(ricetta_id=${ricetta.id},utente_id=${credenziali.utente.id})}">CUOCO DELETE RICETTA</a>
+        <a th:href="@{/admin/editRicetta/{ricetta_id}(ricetta_id=${ricetta.id})}">Modifica la Ricetta</a>
+        <a th:href="@{/admin/deleteRicetta/{ricetta_id}(ricetta_id=${ricetta.id})}">Elimina la Ricetta</a>
     </div>
 
     <div>

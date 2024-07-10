@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siwfood.siw_food.model.Cuoco;
 import it.uniroma3.siwfood.siw_food.model.Immagine;
+import it.uniroma3.siwfood.siw_food.model.Ricetta;
 import it.uniroma3.siwfood.siw_food.repository.ImmagineRepository;
 import jakarta.transaction.Transactional;
 
@@ -45,4 +46,18 @@ public class ImmagineService {
             this.save(image);
         }
     }
+
+    public void addFotoToRicetta(Ricetta ricetta, MultipartFile immagine) throws IOException{
+        if(!immagine.isEmpty()){
+            Immagine image = new Immagine();
+            image.setFileName(immagine.getOriginalFilename());
+            image.setImageData(immagine.getBytes());
+            if (ricetta.getImmagini() == null) {
+                ricetta.setImmagini(new ArrayList<>());
+            }
+            ricetta.getImmagini().add(image);
+            this.save(image);
+        }
+    }
+    
 }

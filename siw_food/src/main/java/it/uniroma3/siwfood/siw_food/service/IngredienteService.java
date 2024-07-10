@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.uniroma3.siwfood.siw_food.model.Ingrediente;
+import it.uniroma3.siwfood.siw_food.model.Ricetta;
 import it.uniroma3.siwfood.siw_food.repository.IngredienteRepository;
 
 @Service
@@ -11,6 +12,7 @@ public class IngredienteService {
     
     @Autowired
     private IngredienteRepository ingredienteRepository;
+
 
     public Ingrediente findById(Long id){
         return this.ingredienteRepository.findById(id).orElse(null);
@@ -27,4 +29,13 @@ public class IngredienteService {
     public void deleteIngrediente(Long id){
         this.ingredienteRepository.deleteById(id);
     }
+
+    public void addIngredienteToRicetta(Ingrediente ing, Ricetta ricetta){
+
+        ing.setRicetta(ricetta);
+        ricetta.getIngredienti().add(ing);
+        this.saveIngrediente(ing);
+    
+    }
+
 }

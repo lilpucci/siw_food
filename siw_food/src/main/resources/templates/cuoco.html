@@ -26,17 +26,20 @@
             </li>
         </ul>
     </div>
-    <div>
-        <a th:href="@{/admin/editCuoco/{id}(id=${cuoco.id})}">ADMIN EDIT CUOCO</a>    
+
+    <div th:if="${userDetails}">
+        <div>
+            <a th:href="@{/admin/editCuoco/{id}(id=${cuoco.id})}">ADMIN EDIT CUOCO</a>    
+        </div>
+        <div>
+            <a th:href="@{/admin/deleteCuoco/{id}(id=${cuoco.id})}">ADMIN DELETE CUOCO</a>    
+        </div>
+        <div>
+            <a th:href="@{/admin/addRicetta/{cuoco_id}(cuoco_id=${cuoco.id})}">ADMIN ADD RICETTA</a>    
+        </div>
     </div>
-    <div>
-        <a th:href="@{/admin/deleteCuoco/{id}(id=${cuoco.id})}">ADMIN DELETE CUOCO</a>    
-    </div>
-    <div>
-        <a th:href="@{/admin/addRicetta/{cuoco_id}(cuoco_id=${cuoco.id})}">ADMIN ADD RICETTA</a>    
-    </div>
-    <div>
-        <a th:href="@{/cuoco/addRicetta/{cuoco_id}/{utente_id}(cuoco_id=${cuoco.id},utente_id=${credenziali.utente.id})}">ADMIN ADD RICETTA</a>    
+    <div th:unless="${userDetails}">
+        <h3>loggati per avere accesso alle operazioni</h3>
     </div>
 
     

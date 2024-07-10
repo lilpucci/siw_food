@@ -15,16 +15,17 @@
         </li>
     </ul>
     
+    <div th:if="${userDetails}">
+        <a href="/admin/addCuoco">ADMIN AGGIUNGE CUOCO</a>
+    </div>
+
     <div>
         <a href="/cuochi/search">Vai alla pagina di ricerca dei cuochi</a>
     </div>
 
     <div>
-        <a href="/admin/addCuoco">ADMIN AGGIUNGE CUOCO</a>
-    </div>
-
-    <div>
         <a href="/">torna all'home page</a>
     </div>
+    
 </body>
 </html>

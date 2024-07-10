@@ -1,22 +1,50 @@
 <!DOCTYPE html>
 <head>
-    <title>New Ricetta</title>
+    <title>AGGIUNGI RICETTA</title>
 </head>
 <body>
-    <h1>New Ricetta</h1>
-    <form th:action="@{/admin/addRicetta/{cuoco_id}(cuoco_id=${cuoco.id})}" th:object="${ricetta}" method="post">
-        <div>
+    <h1>Inserisci i dati della nuova ricetta</h1>
+    <div>   <!--nome e cognome del cuoco per il quale aggiungo la ricetta-->
+        <span th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}"></span>
+    </div>
+
+    <!--ricette attualmente proposte-->
+    <div>
+        <h3>Ricette Proposte</h3>
+        <div th:if="${#lists.isEmpty(cuoco.ricette)}">
+            <p>Non ci sono attualmente ricette per questo cuoco</p>
+        </div>
+        <ul th:unless="${#lists.isEmpty(cuoco.ricette)}">
+            <li th:each="ricetta : ${cuoco.ricette}">
+                <span th:text="${ricetta.nome}"></span>
+            </li>
+        </ul>
+    </div>
+
+    <!--form per l'aggiunta della ricetta-->
+    <form action="#" th:action="@{/admin/addRicetta/{cuoco_id}(cuoco_id=${cuoco.id})}" enctype="multipart/form-data" th:object="${ricetta}" method="post">
+        
+         <div>
             <label for="nome">Nome:</label>
             <input type="text" id="nome" th:field="*{nome}" />
         </div>
+        
         <div>
             <label for="descrizione">Descrizione:</label>
             <input type="text" id="descrizione" th:field="*{descrizione}" />
         </div>
         
         <div>
+            <label for="immagine">Immagine:</label>
+            <input type="file" id="immagine" name="immagine" accept="image/*" required>
+        </div>
+
+        <div>
             <button type="submit">Save</button>
         </div>
+    
     </form>
+
+
 </body>
 </html>

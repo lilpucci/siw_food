@@ -1,7 +1,6 @@
 package it.uniroma3.siwfood.siw_food.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,16 +13,20 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siwfood.siw_food.model.Cuoco;
-import it.uniroma3.siwfood.siw_food.model.Immagine;
+import it.uniroma3.siwfood.siw_food.model.auth.Utente;
 import it.uniroma3.siwfood.siw_food.service.CuocoService;
 import it.uniroma3.siwfood.siw_food.service.ImmagineService;
+import it.uniroma3.siwfood.siw_food.service.UtenteService;
 
 
 @Controller
-public class CuocoController {
+public class CuocoController extends GlobalController{
 
     @Autowired
     private CuocoService cuocoService;
+
+    @Autowired 
+    private UtenteService utenteService;
 
     @Autowired
     private ImmagineService immagineService;
@@ -64,55 +67,67 @@ public class CuocoController {
     }
     /*FINE RICERCHE*/
 
+
     /*SALVATAGGIO CUOCHI*/  
     //porta alla pagina in cui si inseriscono i dati per il nuovo cuoco
     @GetMapping("/admin/addCuoco")
     public String getFormNewCuoco(Model model) {
+        //se l'utente loggato attualmente non è admin non può farlo
+        if(!getCredentials().isAdmin()){
+            return "error/errorPage.html";
+        }
+        //altrimenti va alla pagina di aggiunta di un cuoco
         model.addAttribute("cuoco", new Cuoco());
         return "admin/formNewCuoco.html";
     }
 
     //finalizza la creazione e reindirizza alla pagina del cuoco appena creato
     @PostMapping("/admin/addCuoco")
-    public String postNewCuoco(@ModelAttribute Cuoco cuoco, @RequestParam("immagine") MultipartFile immagine) throws IOException {
-        
-        if (!immagine.isEmpty()) {
-            Immagine img = new Immagine();
-            img.setFileName(immagine.getOriginalFilename());
-            img.setImageData(immagine.getBytes());
-            if (cuoco.getImmagini() == null) {
-                cuoco.setImmagini(new ArrayList<>());
-            }
-            cuoco.getImmagini().add(img);
-            immagineService.save(img);
-        }
+    public String postNewCuoco(@ModelAttribute Cuoco cuoco, @RequestParam("immagine") MultipartFile immagine) throws IOException {        
+        this.immagineService.addFotoToCuoco(cuoco, immagine);
         cuocoService.saveCuoco(cuoco);
         return "redirect:/cuochi/" + cuoco.getId();
     }
     /*FINE SALVATAGGIO CUOCHI*/
 
+
     /*AGGIORNAMENTO DATI*/
     //restituisce la form per editare i dati di un cuoco
     @GetMapping("/admin/editCuoco/{id}")
     public String getFormEditCuoco(@PathVariable("id") Long id, Model model) {
+        Utente utente = getCredentials().getUtente();
+        //controllo dei permessi 
+        if(!getCredentials().isAdmin() &&  this.utenteService.utenteIsCuoco(utente, id)){
+            return "error/errorPage.html";
+        }
         model.addAttribute("cuoco", this.cuocoService.findById(id));
         return "admin/formEditCuoco.html";
     }
 
     //fa partire l'aggiornamento dei dati verso il db
     @PostMapping("/admin/editCuoco/{id}")
-    public String updateCuoco(@PathVariable("id") Long id, @ModelAttribute Cuoco cuoco) {
+    public String updateCuoco(@PathVariable("id") Long id, @ModelAttribute Cuoco cuoco, @RequestParam("immagine") MultipartFile immagine) throws IOException{
+        //così sono sicuro che l'id rimanga invariato
         cuoco.setId(id);
-        this.cuocoService.saveCuoco(cuoco);  
+        //gestione delle foto
+        this.immagineService.addFotoToCuoco(cuoco, immagine);
+        //salvataggio del cuoco
+        this.cuocoService.saveCuoco(cuoco); 
+        //reindirizzato alla pagina del cuoco editato 
         return "redirect:/cuochi/" + cuoco.getId();
     }
     /*FINE AGGIORNAMENTO DATI*/
     
 
-    /*CANCELLAZIONE CUOCHI*/  //ADMIN
+    /*CANCELLAZIONE CUOCHI*/  //ADMIN 
     //cancella un cuoco in base all'id
     @GetMapping("/admin/deleteCuoco/{id}")
     public String deleteCuocoById(@PathVariable("id") Long id) {
+        //se l'utente loggato attualmente non è admin non può farlo
+        if(!getCredentials().isAdmin()){
+            return "error/errorPage.html";
+        }
+        
         this.cuocoService.deleteCuoco(id);
         return "redirect:/cuochi";
     }

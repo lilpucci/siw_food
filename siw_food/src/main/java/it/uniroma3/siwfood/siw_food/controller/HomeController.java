@@ -1,7 +1,6 @@
 package it.uniroma3.siwfood.siw_food.controller;
 
 import java.io.IOException;
-//import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siwfood.siw_food.model.Cuoco;
-//import it.uniroma3.siwfood.siw_food.model.Immagine;
 import it.uniroma3.siwfood.siw_food.model.auth.Credentials;
 import it.uniroma3.siwfood.siw_food.model.auth.Utente;
 import it.uniroma3.siwfood.siw_food.service.CredentialsService;
@@ -28,7 +26,7 @@ import jakarta.validation.Valid;
 
 
 @Controller
-public class HomeController {
+public class HomeController extends GlobalController{
 
     @Autowired
     private CredentialsService credentialsService;
@@ -91,16 +89,11 @@ public class HomeController {
         this.immagineService.addFotoToCuoco(cuoco, immagine);
         
         if(!utenteBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()){
-            
             //cuoco
-            cuoco.setNome(utente.getNome());
-            cuoco.setCognome(utente.getCognome());
-            cuoco.setDataNascita(utente.getDataNascita());
-            cuocoService.saveCuoco(cuoco);
+            this.cuocoService.saveCuocoFromUtente(utente, cuoco);
 
             utente.setCuoco(cuoco);
             utenteService.saveUtente(utente);
-
 
             credentials.setUtente(utente);
             credentials.setRole(Credentials.UTENTE_REGISTRATO);

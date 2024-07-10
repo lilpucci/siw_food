@@ -47,14 +47,20 @@ public class AuthConfiguration {
                         // chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register
                         .requestMatchers(HttpMethod.POST, "/", "/login", "/register", "/cuochi/**", "/ricette/**").permitAll()
                         //solo admin e utenti registrati possono aggiungere-cancellare-modificare risorse  (controlla che chi non è admin lavori per le sue risorse)
+                        
+                        /* se non sei loggato non mostrate le ancore,
+                           se sei admin allora puoi fare tutto, se invece sei registrato controllo se sei quel cuoco
+                           altrimenti pagina di errore con il messaggio -> non hai il permesso 
                         .requestMatchers(HttpMethod.GET, "/cuoco/**").hasAnyAuthority("ADMIN","REGISTRATO")
                         .requestMatchers(HttpMethod.POST, "/cuoco/**").hasAnyAuthority("ADMIN","REGISTRATO")
+                        */
+                        
                         // solo gli utenti autenticati con ruolo ADMIN possono accedere a risorse con path /admin/**
-                        .requestMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority("ADMIN", "REGISTRATO")
+                        .requestMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority("ADMIN", "REGISTRATO")
                         // tutti gli utenti autenticati possono accere alle pag
                         .anyRequest().authenticated())
-                        
+                       
                 
                 // LOGIN: qui definiamo come è gestita l'autenticazione
 				// usiamo il protocollo formlogin       

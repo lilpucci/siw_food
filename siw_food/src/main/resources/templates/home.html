@@ -9,9 +9,11 @@
         <a href="/"><img src="/image/cooking.jpg" width="50%" alt="SiwFood Logo"></a>
     </div>
 
+    
     <div>
         <a href="/login" th:unless="${userDetails}">Login</a>
         <a href="/register" th:unless="${userDetails}">Registrati</a>
+        <a href="/logout" th:if="${userDetails}">Logout</a>
     </div>
 
 

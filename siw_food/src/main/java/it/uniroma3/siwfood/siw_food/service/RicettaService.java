@@ -72,6 +72,12 @@ public class RicettaService {
 
     }
 
+    //TODO DA TESTARE SE FUNZIONA
+    public void addRicettaToCuoco (Ricetta ricetta, Long idC){
+        ricetta.setCuoco(this.cuocoService.findById(idC));
+        this.saveRicetta(ricetta);
+    }
+
     public void saveCuocoToRicetta (Long idRicetta, Long idCuoco){
         
         Ricetta ricetta = this.findById(idRicetta);

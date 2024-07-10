@@ -94,6 +94,9 @@ public class Ricetta {
 
     /*METODI PER LE IMMAGINI*/
     public Immagine getFirstImmagine(){
+        if(this.immagini != null){ 
+            return null;
+        }
         return this.immagini.get(0);
     } 
 

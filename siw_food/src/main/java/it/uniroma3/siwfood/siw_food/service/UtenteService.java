@@ -11,6 +11,9 @@ public class UtenteService {
     
     @Autowired
     private UtenteRepository utenteRepository;
+    
+    @Autowired
+    private CuocoService cuocoService;
 
 
     public Utente getUtente(Long id){
@@ -19,5 +22,9 @@ public class UtenteService {
 
     public Utente saveUtente(Utente u){
         return this.utenteRepository.save(u);
+    }
+
+    public boolean utenteIsCuoco (Utente u, Long idC){
+        return u.getCuoco().equals(this.cuocoService.findById(idC));
     }
 }
