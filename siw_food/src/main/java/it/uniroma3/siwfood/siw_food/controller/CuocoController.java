@@ -78,7 +78,7 @@ public class CuocoController extends GlobalController{
         }
         //altrimenti va alla pagina di aggiunta di un cuoco
         model.addAttribute("cuoco", new Cuoco());
-        return "admin/formNewCuoco.html";
+        return "logged/formNewCuoco.html";
     }
 
     //finalizza la creazione e reindirizza alla pagina del cuoco appena creato
@@ -101,7 +101,7 @@ public class CuocoController extends GlobalController{
             return "error/errorPage.html";
         }
         model.addAttribute("cuoco", this.cuocoService.findById(id));
-        return "admin/formEditCuoco.html";
+        return "logged/formEditCuoco.html";
     }
 
     //fa partire l'aggiornamento dei dati verso il db

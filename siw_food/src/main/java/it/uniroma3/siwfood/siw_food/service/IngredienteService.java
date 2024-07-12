@@ -13,7 +13,7 @@ public class IngredienteService {
     @Autowired
     private IngredienteRepository ingredienteRepository;
 
-
+    //RICERCHE
     public Ingrediente findById(Long id){
         return this.ingredienteRepository.findById(id).orElse(null);
     }
@@ -22,6 +22,7 @@ public class IngredienteService {
         return this.ingredienteRepository.findAll();
     }
 
+    //SALVATAGGIO E CANCELLAZIONE
     public Ingrediente saveIngrediente(Ingrediente Ingrediente){
         return this.ingredienteRepository.save(Ingrediente);
     }
@@ -30,12 +31,12 @@ public class IngredienteService {
         this.ingredienteRepository.deleteById(id);
     }
 
-    public void addIngredienteToRicetta(Ingrediente ing, Ricetta ricetta){
 
-        ing.setRicetta(ricetta);
-        ricetta.getIngredienti().add(ing);
-        this.saveIngrediente(ing);
-    
+    //UTILITIES
+    public void addIngredienteToRicetta(Ingrediente ing, Ricetta ricetta){
+        ing.setRicetta(ricetta);  //set della ricetta a cui appartiene
+        ricetta.getIngredienti().add(ing);   //aggiungo l'ingrediente alla collezione della ricetta
+        this.saveIngrediente(ing);   //salvo il nuovo ingrediente
     }
 
 }

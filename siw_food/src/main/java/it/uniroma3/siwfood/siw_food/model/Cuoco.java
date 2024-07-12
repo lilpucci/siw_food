@@ -83,12 +83,10 @@ public class Cuoco {
 
     /*METODI PER LE IMMAGINI*/
     public Immagine getFirstImmagine(){
-        if(this.immagini == null){
+        if(this.immagini.size() == 0){
             return null;
         }
-        else{
         return this.immagini.get(0);
-        }
     } 
 
     public List<Immagine> getImmaginiDopoFirst(){

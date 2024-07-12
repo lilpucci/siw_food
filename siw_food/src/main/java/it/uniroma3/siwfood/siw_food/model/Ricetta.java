@@ -31,7 +31,7 @@ public class Ricetta {
     private String descrizione;
 
     @ElementCollection
-    private List<Immagine> immagini;
+    private List<Immagine> immagini = new ArrayList<>();
 
     @OneToMany(mappedBy = "ricetta", cascade = CascadeType.ALL)
     private List<Ingrediente> ingredienti = new ArrayList<>();
@@ -94,7 +94,7 @@ public class Ricetta {
 
     /*METODI PER LE IMMAGINI*/
     public Immagine getFirstImmagine(){
-        if(this.immagini != null){ 
+        if(this.immagini.size() == 0){ 
             return null;
         }
         return this.immagini.get(0);

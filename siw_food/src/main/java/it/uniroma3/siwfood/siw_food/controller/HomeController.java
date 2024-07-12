@@ -3,9 +3,9 @@ package it.uniroma3.siwfood.siw_food.controller;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
+/*import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetails;*/
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,7 +44,7 @@ public class HomeController extends GlobalController{
     @GetMapping("/")
     public String getHomePage() {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
+        //Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
 
         return "home.html";
     }
@@ -59,8 +59,8 @@ public class HomeController extends GlobalController{
     public String getHomeAfterLogin(Model model) {
         
         //capire come vengono passati  o comunque cosa ci fanno
-        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Credentials credentials = this.credentialsService.getCredentialsByUsername(userDetails.getUsername());
+        //UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //Credentials credentials = this.credentialsService.getCredentialsByUsername(userDetails.getUsername());
 
         return "home.html";
     }

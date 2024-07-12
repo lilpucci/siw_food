@@ -2,7 +2,6 @@ package it.uniroma3.siwfood.siw_food.controller;
 
 
 import java.io.IOException;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import it.uniroma3.siwfood.siw_food.model.Cuoco;
+//import it.uniroma3.siwfood.siw_food.model.Immagine;
 import it.uniroma3.siwfood.siw_food.model.Ingrediente;
 import it.uniroma3.siwfood.siw_food.model.Ricetta;
 import it.uniroma3.siwfood.siw_food.service.CuocoService;
@@ -95,7 +95,7 @@ public class RicettaController extends GlobalController {
         }
         model.addAttribute("cuoco", this.cuocoService.findById(idC));
         model.addAttribute("ricetta", new Ricetta());
-        return "admin/formNewRicetta.html";
+        return "logged/formNewRicetta.html";
     }
 
     //finalizza la creazione della ricetta
@@ -125,26 +125,28 @@ public class RicettaController extends GlobalController {
         }
 
         model.addAttribute("ricetta", this.ricettaService.findById(idR));
-        model.addAttribute("ingredienti", this.ricettaService.findById(idR).getIngredienti());
         model.addAttribute("ingrediente", new Ingrediente());
 
-        return "admin/formEditRicettaNuova.html";
+        return "logged/formEditRicetta.html";
     }
 
-    //aggiorna i dati 
-    @PostMapping("/admin/editRicetta/{ricetta_id}")
-    public String updateRicetta(@PathVariable("ricetta_id") Long idR, @ModelAttribute Ricetta ricetta,@ModelAttribute List<Ingrediente> ingredienti, @RequestParam("immagine") MultipartFile immagine) throws IOException {
+    //aggiorna i dati e rimanda alla pagina della ricetta
+    @PostMapping("/admin/editRicetta/{ricetta_id}/{cuoco_id}")
+    public String updateRicetta(@PathVariable("ricetta_id") Long idR, @PathVariable("cuoco_id") Long idC, @ModelAttribute Ricetta ricetta, @RequestParam("immagine") MultipartFile immagine) throws IOException {
+        //imposto lo stesso id 
         ricetta.setId(idR);
-        //se img isEmpty non fa niente
+        //salvo la foto alla ricetta
         this.immagineService.addFotoToRicetta(ricetta, immagine);
-        //salvo la ricetta
-        this.ricettaService.saveRicetta(ricetta);
+        //salvo la ricetta aggiungendola al cuoco
+        this.ricettaService.addRicettaToCuoco(ricetta, idC);
+        
         return "redirect:/ricette/" + ricetta.getId();
     }
 
+    //aggiunge un ingrediente e rimanda alla form di modifica della ricetta
     @PostMapping("/admin/addIngrediente/{ricetta_id}")
     public String addIngrediente(@PathVariable("ricetta_id") Long idR, @ModelAttribute Ingrediente ingrediente, Model model) {
-        
+        //aggiungo l'ingrediente
         this.ingredienteService.addIngredienteToRicetta(ingrediente, this.ricettaService.findById(idR)); 
 
         return "redirect:/admin/editRicetta/" + idR;
@@ -154,7 +156,7 @@ public class RicettaController extends GlobalController {
     
 
 
-    /*CANCELLAZIONE*/  //COME ADMIN
+    /*CANCELLAZIONE*/
     @GetMapping("/admin/deleteRicetta/{ricetta_id}")
     public String adminDeleteRicetta(@PathVariable("ricetta_id") Long idR) {
         Cuoco cuoco = this.ricettaService.findById(idR).getCuoco();
@@ -162,6 +164,7 @@ public class RicettaController extends GlobalController {
         if(!getCredentials().isAdmin() && !this.utenteService.utenteIsCuoco(getCredentials().getUtente(), cuoco.getId()) ){
             return "error/errorPage.html";
         }
+        //cancello la ricetta
         this.ricettaService.deleteRicettaById(idR);
         return "redirect:/ricette";
     }

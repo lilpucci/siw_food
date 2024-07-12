@@ -15,6 +15,10 @@
         <h2 th:text="${ricetta.nome}">Nome della Ricetta</h2>
         <p th:text="${ricetta.descrizione}">Descrizione della Ricetta</p>
     </div>
+
+    <div>
+        <p th:text="${ricetta.cuoco.nome}">nome cuoco</p>
+    </div>
     
     <div>
         <h3>Ingredienti</h3>
@@ -30,7 +34,7 @@
     </div>
 
 <!-- qui metto il form che fa la conferma quindi fine  -->
-<form th:action="@{/admin/editRicetta/{ricetta_id}(ricetta_id=${ricetta.id})}" enctype="multipart/form-data" th:object="${ricetta}" method="post">
+<form th:action="@{/admin/editRicetta/{ricetta_id}/{cuoco_id}(ricetta_id=${ricetta.id},cuoco_id=${ricetta.cuoco.id})}" enctype="multipart/form-data" th:object="${ricetta}" method="post">
         
     <div>
        <label for="nome">Nome:</label>
@@ -44,7 +48,7 @@
    
    <div>
        <label for="immagine">Immagine:</label>
-       <input type="file" id="immagine" name="immagine" accept="image/*" required>
+       <input type="file" id="immagine" name="immagine" accept="image/*">
    </div>
 
    <div>
@@ -55,7 +59,7 @@
 
 
 <!-- qui metto il form che fa l'aggiunta di un ingrediente mi riporta a questa pagina  -->
-    <form th:action="@{/admin/addIngrediente/{ricetta_id}(ricetta_id = ${ricetta.id})}" th:object="${ingrediente}" method="post">
+    <form th:action="@{/admin/addIngrediente/{ricetta_id}(ricetta_id=${ricetta.id})}" th:object="${ingrediente}" method="post">
 
         <div>
             <label for="nome">Nome Ingrediente:</label>
