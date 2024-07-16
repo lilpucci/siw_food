@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import it.uniroma3.siwfood.siw_food.model.auth.Credentials;
+import it.uniroma3.siwfood.siw_food.model.auth.Utente;
 
 @Repository
 public interface CredentialsRepository extends CrudRepository<Credentials, Long>{
@@ -14,5 +15,7 @@ public interface CredentialsRepository extends CrudRepository<Credentials, Long>
     public Optional<Credentials> findByUsername(String username);
     //restituisce le credenziali in base all'id
     public Optional<Credentials> findById(Long id);
+
+    public Credentials findByUtente(Utente utente);
 
 }

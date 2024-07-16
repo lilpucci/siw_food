@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import it.uniroma3.siwfood.siw_food.model.auth.Credentials;
+import it.uniroma3.siwfood.siw_food.model.auth.Utente;
 import it.uniroma3.siwfood.siw_food.repository.CredentialsRepository;
 
 @Service
@@ -41,6 +42,10 @@ public class CredentialsService {
     /*CANCELLAZIONE*/
     public void deleteCredentials(Credentials credentials){
         this.credentialsRepository.delete(credentials);
+    }
+
+    public void deleteCredentialsByUtente(Utente utente){
+        this.deleteCredentials(this.credentialsRepository.findByUtente(utente));
     }
     /*FINE CANCELLAZIONE*/
 

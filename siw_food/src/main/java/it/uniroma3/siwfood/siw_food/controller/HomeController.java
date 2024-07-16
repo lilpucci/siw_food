@@ -110,5 +110,11 @@ public class HomeController extends GlobalController{
     
     //TODO capire come togliere i warning
     
+
+    //porta al form per la ricerca dei cuochi
+    @GetMapping("/cerca")
+    public String getPaginaCerca() {
+        return "cerca.html";
+    }
     
 }

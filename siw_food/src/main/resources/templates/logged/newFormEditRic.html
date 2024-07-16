@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!-- Source Codes By CodingNepal - www.codingnepalweb.com -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form edit recipe</title>
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="css/home.css" />
+    <!-- Box Icon Link for Icons -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header>
+        <nav>
+            <div class="nav_logo">
+              <a href="#">
+                <img src="image/food_logo.jpg" alt="SiwFood Logo" />
+                <h2>Siw Food</h2>
+              </a>
+            </div>
+            <input type="checkbox" id="click" />
+            <label for="click">
+              <i class="menu_btn bx bx-menu"></i>
+              <i class="close_btn bx bx-x"></i>
+            </label>
+            <ul>
+              <li><a th:href="@{/}">Home</a></li>
+              <li><a th:href="@{/cuochi}">Cuochi</a></li>
+              <li><a th:href="@{/ricette}">Ricette</a></li>
+              <li><a th:href="@{/cerca}">Search</a></li>
+            </ul>
+        </nav>
+    </header>
+
+          <!-- Contact Section -->
+          <section class="contact" id="contact">
+            <div class="text_section">
+                <h2 class="section_title">Edit Recipe Form</h2>
+                <p>
+                  Use this form to edit current feature of your recipe.
+                </p>
+            </div>
+        <!--    <h2 class="section_title">Search Form</h2>  -->
+            <div class="section_container">
+              <div class="contact_container">
+                <div class="contact_form">
+  
+                  <!--form per la modifica di nome e descrizione ricetta -->
+                  <form th:action="@{/admin/editRicetta/{ricetta_id}/{cuoco_id}(ricetta_id=${ricetta.id},cuoco_id=${ricetta.cuoco.id})}" th:object="${ricetta}" method="post">
+                    <div class="field">
+                      <label for="nome">Change recipe name:</label>
+                      <input type="text" id="nome" placeholder="New Recipe Name" th:field="*{nome}" required />
+                    </div>
+                    <div class="field">
+                        <label for="descrizione">Change recipe description:</label>
+                        <input type="text" id="descrizione" placeholder="New Recipe Description" th:field="*{descrizione}" />
+                      </div>
+                    <button class="button" id="submit">Finish</button>
+                  </form>
+  
+                  <!--form per l'aggiunta di un ingrediente -->
+                  <form th:action="@{/admin/addIngrediente/{ricetta_id}(ricetta_id=${ricetta.id})}" th:object="${ingrediente}" method="post">
+                    <div class="field">
+                        <label for="nome">Insert new ingredient name</label>
+                        <input type="text" id="nome" placeholder="Ingredient name" th:field="*{nome}" required />
+                    </div>
+                    <div class="field">
+                        <label for="quantita">Insert new ingredient quantity</label>
+                        <input type="text" id="quantita" placeholder="Ingredient quantity" th:field="*{quantita}" required />
+                    </div>
+                    <button class="button" id="submit">Add Ingredient</button>
+                  </form>
+  
+                  <!--form per la foto -->
+                  <form th:action="@{/cuochi/byYear}" method="post">
+                    <div class="field">
+                      <label for="year">Search chefs by Year of birth</label>
+                      <input type="number" name="year" placeholder="Your Contact Number" th:value="${year}" required />
+                    </div>
+                    <button class="button" id="submit">Submit</button>
+                  </form>
+                </div>
+            
+                <div class="contact_text">
+                  <div class="contact_items">
+                    <i class="bx bx-current-location"></i>
+                    <div class="contact_details">
+                      <h3 th:text="${ricetta.nome}">Recipe name</h3>
+                      <p th:text="${ricetta.descrizione}">Recipe, Description</p>
+                    </div>
+                  </div>
+                  <div class="contact_items">
+                    <i class="bx bx-current-location"></i>
+                    <div class="contact_details">
+                      <h3>Proposed by:</h3>
+                      <p th:text="${ricetta.cuoco.nome} + ' ' + ${ricetta.cuoco.cognome}">Recipe's Chef</p>
+                    </div>
+                  </div>
+                </div> 
+              </div>
+            </div>
+          </section>
+    
+  </body>
+</html>

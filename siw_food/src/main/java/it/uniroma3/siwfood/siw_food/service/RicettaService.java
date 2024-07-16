@@ -40,8 +40,8 @@ public class RicettaService {
     }
 
     //salvataggio
-    public Ricetta saveRicetta(Ricetta ricetta){
-        return this.ricettaRepository.save(ricetta);
+    public void saveRicetta(Ricetta ricetta){
+        this.ricettaRepository.save(ricetta);
     }
 
     //cancellazione

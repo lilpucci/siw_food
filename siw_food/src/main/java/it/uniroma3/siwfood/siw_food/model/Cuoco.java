@@ -22,7 +22,7 @@ public class Cuoco {
     
     /*ATTRIBUTI CUOCO*/
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
@@ -38,7 +38,7 @@ public class Cuoco {
     private List<Immagine> immagini = new ArrayList<>();
     
     @OneToMany(mappedBy = "cuoco", cascade = CascadeType.ALL)
-    private List<Ricetta> ricette;
+    private List<Ricetta> ricette = new ArrayList<>();
     /*FINE ATTRIBUTI*/
 
 
@@ -82,10 +82,11 @@ public class Cuoco {
 
 
     /*METODI PER LE IMMAGINI*/
+    public boolean hasImmagini(){
+        return !this.immagini.isEmpty();
+    }
+
     public Immagine getFirstImmagine(){
-        if(this.immagini.size() == 0){
-            return null;
-        }
         return this.immagini.get(0);
     } 
 

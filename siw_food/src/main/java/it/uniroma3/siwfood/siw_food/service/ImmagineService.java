@@ -1,7 +1,6 @@
 package it.uniroma3.siwfood.siw_food.service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,27 +33,25 @@ public class ImmagineService {
         return this.immagineRepository.save(immagine);
     }
 
+    //se non vuoto il multipart file lo aggiunge alla collezione di foto del cuoco
     public void addFotoToCuoco(Cuoco cuoco, MultipartFile immagine) throws IOException{
         if(!immagine.isEmpty()){
-            Immagine image = new Immagine();
-            image.setFileName(immagine.getOriginalFilename());
-            image.setImageData(immagine.getBytes());
-            if (cuoco.getImmagini() == null) {
-                cuoco.setImmagini(new ArrayList<>());
-            }
-            cuoco.getImmagini().add(image);
-            this.save(image);
+            Immagine img = new Immagine();
+            img.setFileName(immagine.getOriginalFilename());
+            img.setImageData(immagine.getBytes());
+            //lo aggiungo al cuoco
+            cuoco.getImmagini().add(img);
+            this.save(img);
         }
     }
 
+    //se non vuoto il multipart file lo aggiunge alla collezione di foto della ricetta
     public void addFotoToRicetta(Ricetta ricetta, MultipartFile immagine) throws IOException{
         if(!immagine.isEmpty()){
             Immagine image = new Immagine();
             image.setFileName(immagine.getOriginalFilename());
             image.setImageData(immagine.getBytes());
-            if (ricetta.getImmagini() == null) {
-                ricetta.setImmagini(new ArrayList<>());
-            }
+            // lo aggiungo alla ricetta
             ricetta.getImmagini().add(image);
             this.save(image);
         }

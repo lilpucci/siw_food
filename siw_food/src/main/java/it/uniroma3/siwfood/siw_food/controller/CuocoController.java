@@ -108,13 +108,28 @@ public class CuocoController extends GlobalController{
     @PostMapping("/admin/editCuoco/{id}")
     public String updateCuoco(@PathVariable("id") Long id, @ModelAttribute Cuoco cuoco, @RequestParam("immagine") MultipartFile immagine) throws IOException{
         //così sono sicuro che l'id rimanga invariato
-        cuoco.setId(id);
+        //cuoco.setId(id);
         //gestione delle foto
-        this.immagineService.addFotoToCuoco(cuoco, immagine);
+        //this.immagineService.addFotoToCuoco(cuoco, immagine);
         //salvataggio del cuoco
-        this.cuocoService.saveCuoco(cuoco); 
+        //this.cuocoService.saveCuoco(cuoco); 
         //reindirizzato alla pagina del cuoco editato 
-        return "redirect:/cuochi/" + cuoco.getId();
+        Cuoco oldCuoco = this.cuocoService.findById(id);
+        if(cuoco.getNome() != ""){
+            oldCuoco.setNome(cuoco.getNome());
+        }
+
+        if(cuoco.getCognome() != ""){
+            oldCuoco.setCognome(cuoco.getCognome());
+        }
+
+        if(cuoco.getDataNascita() != null){
+            oldCuoco.setDataNascita(cuoco.getDataNascita());
+        }
+
+        this.immagineService.addFotoToCuoco(oldCuoco, immagine);
+
+        return "redirect:/cuochi/" + id;
     }
     /*FINE AGGIORNAMENTO DATI*/
     
@@ -127,8 +142,21 @@ public class CuocoController extends GlobalController{
         if(!getCredentials().isAdmin()){
             return "error/errorPage.html";
         }
-        
-        this.cuocoService.deleteCuoco(id);
+
+        //se corrisponde ad un utente 
+        //cred -> user -> cuoco
+        Cuoco cuoco = this.cuocoService.findById(id);
+
+        Utente utente = this.utenteService.findByCuoco(cuoco);
+
+        if (utente != null){
+            this.utenteService.deleteCredentialsByUtente(utente);
+        }
+        else{
+            //se è un cuoco aggiunto dall'admin
+            this.cuocoService.deleteCuoco(id);
+        }
+
         return "redirect:/cuochi";
     }
     /*FINE CANCELLAZIONE CUOCHI*/

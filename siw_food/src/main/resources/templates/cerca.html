@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Search Form</title>
+        <!-- CSS Link -->
+        <link rel="stylesheet" href="css/home.css" />
+        <!-- Box Icon Link for Icons -->
+        <link
+        href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+        rel="stylesheet"
+        />
+    </head>
+    <!-- Header & Navbar Section -->
+    
+    <body>
+      <header>
+          <nav>
+              <div class="nav_logo">
+                <a href="#">
+                  <img src="image/food_logo.jpg" alt="SiwFood Logo" />
+                  <h2>Siw Food</h2>
+                </a>
+              </div>
+              <input type="checkbox" id="click" />
+              <label for="click">
+                <i class="menu_btn bx bx-menu"></i>
+                <i class="close_btn bx bx-x"></i>
+              </label>
+              <ul>
+                <li><a th:href="@{/}">Home</a></li>
+                <li><a th:href="@{/cuochi}">Cuochi</a></li>
+                <li><a th:href="@{/ricette}">Ricette</a></li>
+                <li><a th:href="@{/cerca}">Search</a></li>
+              </ul>
+          </nav>
+      </header>
+
+      <!-- Contact Section -->
+      <section class="contact" id="contact">
+          <div class="text_section">
+              <h2 class="section_title">Search Form</h2>
+              <p>
+                Use this form to insert parameters to search what you want.
+              </p>
+          </div>
+      <!--    <h2 class="section_title">Search Form</h2>  -->
+          <div class="section_container">
+            <div class="contact_container">
+              <div class="contact_form">
+
+                <!--form per la ricerca dei cuochi in base al nome-->
+                <form th:action="@{/cuochi/byNome}" method="post">
+                  <div class="field">
+                    <label for="nome">Search chefs by Name</label>
+                    <input type="text" name="nome" placeholder="Chefs Name" th:value="${nome}" required />
+                  </div>
+                  <button class="button" id="submit">Submit</button>
+                </form>
+
+                <!--form per la ricerca delle ricette in base al nome di un ingrediente-->
+                <form th:action="@{/ricette/byIngrediente}" method="post">
+                  <div class="field">
+                      <label for="ingr">Search recipes by an Ingredient Name</label>
+                      <input type="text" name="ingr" placeholder="Ingredient Name" th:value="${ingr}" required />
+                  </div>
+                  <button class="button" id="submit">Submit</button>
+                </form>
+
+
+                <!--form per la ricerca delle ricette in base al nome-->
+                <form th:action="@{/ricette/byNome}" method="post">
+                  <div class="field">
+                      <label for="nome">Search recipes by Name</label>
+                      <input type="text" name="nome" placeholder="Recipes Name" th:value="${nome}" required />
+                  </div>
+                  <button class="button" id="submit">Submit</button>
+                </form>
+
+                <!--form per la ricerca dei cuochi in base all' anno di nascita-->
+                <form th:action="@{/cuochi/byYear}" method="post">
+                  <div class="field">
+                    <label for="year">Search chefs by Year of birth</label>
+                    <input type="number" name="year" placeholder="Your Contact Number" th:value="${year}" required />
+                  </div>
+                  <button class="button" id="submit">Submit</button>
+                </form>
+              </div>
+              <!--
+              <div class="contact_text">
+                <div class="contact_items">
+                  <i class="bx bx-current-location"></i>
+                  <div class="contact_details">
+                    <h3>Our Location</h3>
+                    <p>Berndorf, Germany</p>
+                  </div>
+                </div>
+                <div class="contact_items">
+                  <i class="bx bxs-envelope"></i>
+                  <div class="contact_details">
+                    <h3>General Enquries</h3>
+                    <p>coffeeshop@xyz.com</p>
+                  </div>
+                </div>
+                <div class="contact_items">
+                  <i class="bx bxs-phone-call"></i>
+                  <div class="contact_details">
+                    <h3>Call Us</h3>
+                    <p>+01 92728239</p>
+                  </div>
+                </div>
+                <div class="contact_items">
+                  <i class="bx bxs-time-five"></i>
+                  <div class="contact_details">
+                    <h3>Our Timing</h3>
+                    <p>Mon-Sun : 10:00 AM - 7:00 PM</p>
+                  </div>
+                </div>
+              </div>  -->
+            </div>
+          </div>
+        </section>
+
+    </body>
+
+</html>

@@ -6,8 +6,10 @@
 <body>
     <h1>Dettagli della Ricetta</h1>
 
-    <div th:if="${ricetta.immagini}">
-        <img th:if="${ricetta.getFirstImmagine() != null}" th:src="'data:image/jpeg;base64,' + ${ricetta.getFirstImmagine().getBase64()}" width="30%"/>
+    <div th:if="${ricetta.hasImmagini() == true}">
+        <span th:each=" immagine : ${ricetta.immagini}">
+            <img th:src="'data:image/jpeg;base64,' + ${immagine.getBase64()}" width="30%"/>
+        </span>
     </div>
     
     <div>
