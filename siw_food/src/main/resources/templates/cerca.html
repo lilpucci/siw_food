@@ -59,6 +59,15 @@
                   <button class="button" id="submit">Submit</button>
                 </form>
 
+                <!--form per la ricerca dei cuochi in base all' anno di nascita-->
+                <form th:action="@{/cuochi/byYear}" method="post">
+                  <div class="field">
+                    <label for="year">Search chefs by Year of birth</label>
+                    <input type="number" name="year" placeholder="Your Contact Number" th:value="${year}" required />
+                  </div>
+                  <button class="button" id="submit">Submit</button>
+                </form>
+
                 <!--form per la ricerca delle ricette in base al nome di un ingrediente-->
                 <form th:action="@{/ricette/byIngrediente}" method="post">
                   <div class="field">
@@ -78,14 +87,6 @@
                   <button class="button" id="submit">Submit</button>
                 </form>
 
-                <!--form per la ricerca dei cuochi in base all' anno di nascita-->
-                <form th:action="@{/cuochi/byYear}" method="post">
-                  <div class="field">
-                    <label for="year">Search chefs by Year of birth</label>
-                    <input type="number" name="year" placeholder="Your Contact Number" th:value="${year}" required />
-                  </div>
-                  <button class="button" id="submit">Submit</button>
-                </form>
               </div>
               <!--
               <div class="contact_text">

@@ -46,12 +46,6 @@ public class CuocoController extends GlobalController{
         return "cuoco.html";
     }
 
-    //porta al form per la ricerca dei cuochi
-    @GetMapping("/cuochi/search")
-    public String getFormSearchCuoco() {
-        return "forms/formSearchCuoco.html";
-    }
-
     //restituisce una pagina con tutti i cuochi con un determinato nome
     @PostMapping("/cuochi/byNome")  //invia al server i dati con cui effettuare la ricerca
     public String postCuochiByNome(@RequestParam String nome, Model model) {
@@ -68,8 +62,9 @@ public class CuocoController extends GlobalController{
     /*FINE RICERCHE*/
 
 
-    /*SALVATAGGIO CUOCHI*/  
+    /*SALVATAGGIO CUOCHI*/  //essendo il cuoco un utente registrato non ha molto senso che possa essere aggiunto a parte
     //porta alla pagina in cui si inseriscono i dati per il nuovo cuoco
+    /* 
     @GetMapping("/admin/addCuoco")
     public String getFormNewCuoco(Model model) {
         //se l'utente loggato attualmente non è admin non può farlo
@@ -87,7 +82,7 @@ public class CuocoController extends GlobalController{
         this.immagineService.addFotoToCuoco(cuoco, immagine);
         cuocoService.saveCuoco(cuoco);
         return "redirect:/cuochi/" + cuoco.getId();
-    }
+    } */
     /*FINE SALVATAGGIO CUOCHI*/
 
 
@@ -107,28 +102,11 @@ public class CuocoController extends GlobalController{
     //fa partire l'aggiornamento dei dati verso il db
     @PostMapping("/admin/editCuoco/{id}")
     public String updateCuoco(@PathVariable("id") Long id, @ModelAttribute Cuoco cuoco, @RequestParam("immagine") MultipartFile immagine) throws IOException{
-        //così sono sicuro che l'id rimanga invariato
-        //cuoco.setId(id);
-        //gestione delle foto
-        //this.immagineService.addFotoToCuoco(cuoco, immagine);
-        //salvataggio del cuoco
-        //this.cuocoService.saveCuoco(cuoco); 
-        //reindirizzato alla pagina del cuoco editato 
-        Cuoco oldCuoco = this.cuocoService.findById(id);
-        if(cuoco.getNome() != ""){
-            oldCuoco.setNome(cuoco.getNome());
-        }
-
-        if(cuoco.getCognome() != ""){
-            oldCuoco.setCognome(cuoco.getCognome());
-        }
-
-        if(cuoco.getDataNascita() != null){
-            oldCuoco.setDataNascita(cuoco.getDataNascita());
-        }
-
-        this.immagineService.addFotoToCuoco(oldCuoco, immagine);
-
+        //nel db cuoco non ha F.K. quindi posso tranquillamente sovrascrivere senza perdere riferimenti 
+        cuoco.setImmagini(this.cuocoService.findById(id).getImmagini());  //recupero le immagini precedenti
+        cuoco.setId(id);  //setto l'id
+        this.immagineService.addFotoToCuoco(cuoco, immagine);  //aggiungo l'eventuale nuova immagine
+        this.cuocoService.saveCuoco(cuoco); //save
         return "redirect:/cuochi/" + id;
     }
     /*FINE AGGIORNAMENTO DATI*/
