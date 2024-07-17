@@ -28,10 +28,11 @@ body{
   text-align: center;
 }
 .content h2.header{
-  font-size: 14vw;
+  font-size: 10vw;
   line-height: 1em;
   position: relative;
 }
+
 .content h2.header:after{
   position: absolute;
   content: attr(data-text);

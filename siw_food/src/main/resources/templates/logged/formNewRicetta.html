@@ -1,14 +1,15 @@
+<!--
 <!DOCTYPE html>
 <head>
     <title>AGGIUNGI RICETTA</title>
 </head>
 <body>
     <h1>Inserisci i dati della nuova ricetta</h1>
-    <div>   <!--nome e cognome del cuoco per il quale aggiungo la ricetta-->
+    <div>   nome e cognome del cuoco per il quale aggiungo la ricetta
         <span th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}"></span>
     </div>
 
-    <!--ricette attualmente proposte-->
+    ricette attualmente proposte
     <div>
         <h3>Ricette Proposte</h3>
         <div th:if="${#lists.isEmpty(cuoco.ricette)}">
@@ -21,7 +22,7 @@
         </ul>
     </div>
 
-    <!--form per l'aggiunta della ricetta-->
+    form per l'aggiunta della ricetta
     <form action="#" th:action="@{/admin/addRicetta/{cuoco_id}(cuoco_id=${cuoco.id})}" enctype="multipart/form-data" th:object="${ricetta}" method="post">
         
          <div>
@@ -47,4 +48,75 @@
 
 
 </body>
+</html>  -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SiwFood New Ricetta</title>
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="/css/home.css" />
+    <!-- Box Icon Link for Icons -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+        <nav>
+          <div class="nav_logo">
+            <a href="#">
+              <img src="image/food_logo.jpg" alt="SiwFood Logo" />
+              <h2>Siw Food</h2>
+            </a>
+          </div>
+          <input type="checkbox" id="click" />
+          <label for="click">
+            <i class="menu_btn bx bx-menu"></i>
+            <i class="close_btn bx bx-x"></i>
+          </label>
+          <ul>
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/cuochi}">Cuochi</a></li>
+            <li><a th:href="@{/ricette}">Ricette</a></li>
+            <li><a th:href="@{/cerca}">Search</a></li>
+          </ul>
+        </nav>
+      </header>
+
+       <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="text_section">
+            <h2 class="section_title">Aggiungi Ricetta</h2>
+        </div>
+    <!--    <h2 class="section_title">Search Form</h2>  -->
+        <div class="section_container">
+          <div class="contact_container">
+            <div class="contact_form">
+                <p>Aggiungi una nuova Ricetta </p>
+              <!--form per la modifica di ricetta -->
+              <form action="#" th:action="@{/admin/addRicetta/{cuoco_id}(cuoco_id=${cuoco.id})}" enctype="multipart/form-data" th:object="${ricetta}" method="post">
+                <div class="field">
+                  <label for="nome">Nome Ricetta</label>
+                  <input type="text" id="nome" placeholder="Nome" th:field="*{nome}" required/>
+                </div>
+                <div class="field">
+                    <label for="descrizione">Descrizione Ricetta</label>
+                    <input type="text" id="descrizione" placeholder="Descrizione" th:field="*{descrizione}" required/>
+                </div>
+                <div class="field">
+                    <label for="immagine">Immagine:</label>
+                    <input type="file" id="immagine" name="immagine" accept="image/*" required />
+                </div>
+                <button class="button" id="submit">Aggiungi</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+  </body>
 </html>

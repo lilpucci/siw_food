@@ -193,6 +193,7 @@ public class RicettaController extends GlobalController {
         //torno alla pagina di modifica della ricetta
         return "redirect:/admin/editRicetta/" + idR;
     }
+    /*FINE CANCELLAZIONE INGREDIENTE*/
 
 
 }
